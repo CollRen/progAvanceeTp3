@@ -1,0 +1,17 @@
+:root {
+    --main-bg-color: #cf7867d6;
+    --main-txt-color: #00101C;
+    --main-color: rgb(99, 71, 99);
+    --main-btn-txt-color: rgb(35, 26, 26);
+
+    --space-xxs: .1rem;
+    --space-xs: .3rem;
+    --space-s: .6rem;
+    --space-ms: 1rem;
+    --space-m: 1.33rem;
+    --space-ml: 1.66rem;
+    --space-l: 2rem;
+    --space-xl: 2.33rem;
+    --space-xxl: 2.66rem;
+    --space-xxxl: 3rem;
+  }

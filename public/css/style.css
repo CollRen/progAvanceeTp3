@@ -1,0 +1,125 @@
+@import './reset.css';
+@import './variables.css';
+
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    margin:auto;
+}
+nav {
+    background-color: var(--main-bg-color);
+    overflow: hidden;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+nav ul {
+    display: flex;
+    justify-content: space-around;
+    padding: var(--space-xl);
+}
+nav li a {
+    font-size: var(--space-ml);
+    color: var(--main-txt-color);
+    text-align: center;
+    padding: var(--space-s);
+    text-decoration: none;
+}
+main{
+    padding: var(--space-ml);
+}
+nav li a:hover {
+    opacity: 75%;
+}
+table {
+    border-collapse: collapse; 
+    width: 100%; 
+}
+th {
+    background-color: var(--main-bg-color);
+    color: var(--main-txt-color);
+    font-size: var(--space-m);
+    text-align: left;
+    padding: 10px;
+}
+td {
+    border: 1px solid var(--main-bg-color);
+    padding: 10px;
+}
+tr:nth-child(even) {
+    background-color: #7a483e35;
+}
+.container {
+    width: 300px;
+    margin: 0 auto;
+    border: 1px solid #7A483E;
+    padding: 30px;
+    border-radius: 10px;
+}
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+input, select {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 5px;
+    border: 1px solid #7a483e58;
+    border-radius: 5px;
+}
+.btn {
+    margin-top:10px;
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    outline: 2px solid #7A483E;
+    border: 0px;
+    color: var(--main-txt-color);
+    border-radius: 5px;
+    background-color: var(--main-bg-color);
+    transition: background-color 0.3s ease;
+}
+.btn.block{
+    width: 100%;
+    padding: 5px 0px;
+}
+.btn:hover {
+    opacity: 75%;
+}
+.btn.red {
+    outline: 2px solid #98082a;
+    border: 0px;
+    color: #db3450;
+}
+.btn.red:hover {
+    background-color: #db3450;
+    color: #fff;
+}
+.error{
+    width: 100%;
+    display: inline-block;
+    padding:5px;
+    background-color: rgb(251, 187, 187);
+    border-radius: 5px;
+    border: red 1px solid;
+    font-size: 0.9em;
+    color:red;
+}
+footer {
+    background-color: var(--main-bg-color);
+    color: var(--main-txt-color);
+    text-align: center;
+    padding: var(--space-ml);
+    bottom: 0;
+    width: 100%;
+}
+a {
+    text-decoration: none;
+    color: var(--main-txt-color);
+    font-size: var(--space-m);
+}
