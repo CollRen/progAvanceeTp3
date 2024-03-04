@@ -1,4 +1,7 @@
 {{ include('layouts/header.php', { title: 'Show'})}}
+
+
+asjdf;ldskfgj;aslj;lksdg
     <div class="recette">
         <h1 class="recette__titre">{{ recette.titre }}</h1>
         <div class="recette__durees">
@@ -16,9 +19,9 @@
     </div>
     <div class="recette_btn">
         <a href="{{base}}/recette/edit?id={{recette.id}}" class="btn block">Edit</a>
-        <form action="{{base}}/recette/delete" method="post">
+        <form action="{{base}}/recettehasingredient/store" method="post">
             <input type="hidden" name="id" value="{{ recette.id }}">
-            <button class="btn block red">Delete</button>
+            <button class="">Ajouter des ingrédients</button>
         </form>
     </div>
 

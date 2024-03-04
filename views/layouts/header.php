@@ -47,5 +47,5 @@
 
 
         {% if guest is empty %}
-        Bienvenu {{ session.user_name }},
+        Bienvenue {{ session.user_name }},
         {% endif %}

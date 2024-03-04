@@ -1,6 +1,12 @@
 <?php
 namespace App\Controllers;
 
+use App\Providers\Auth;
+use App\Models\RecetteCategorie;
+use App\Models\Recette;
+use App\Models\Umesure;
+use App\Models\Ingredient;
+use App\Models\Auteur;
 use App\Models\Recettehasingredient;
 use App\Providers\View;
 use App\Providers\Validator;
@@ -9,12 +15,23 @@ use App\Providers\Validator;
 class RecettehasingredientController {
 
     public function index(){
+        
+        $recette = new Recette;
+        $select = $recette->select();
+       
+        $umesure = new Umesure;
+        $selectUmesure = $umesure->select();
+
+        $ingredient = new Ingredient;
+        $selectIngredient = $ingredient->select();
+
         $recettehasingredient = new Recettehasingredient;
         $select = $recettehasingredient->select();
+
         //print_r($select);
         //include('views/recettehasingredient/index.php');
         if($select){
-            return View::render('recettehasingredient/index', ['recettehasingredients' => $select]);
+            return View::render('recettehasingredient/index', ['recettehasingredients' => $select, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
         }else{
             return View::render('error');
         }    
@@ -34,8 +51,28 @@ class RecettehasingredientController {
         }
     }
 
-    public function create(){
-        return View::render('recettehasingredient/create');
+    public function create()
+    {
+        Auth::session();
+     
+        $recetteCategorie = new RecetteCategorie;
+        $recetteCategorieSelect = $recetteCategorie->select();
+
+        $recetteAuteur = new Auteur;
+        $recetteAuteurSelect = $recetteAuteur->select();
+
+        $umesure = new Umesure;
+        $selectUmesure = $umesure->select();
+
+        $ingredient = new Ingredient;
+        $selectIngredient = $ingredient->select();
+
+        $recettehasingredient = new Recettehasingredient;
+        $selectRHI = $recettehasingredient->select();
+
+        
+
+        return View::render('recette/create', ['recetteCategories' => $recetteCategorieSelect, 'recetteAuteurs' => $recetteAuteurSelect, 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
     }
 
     public function store($data){

@@ -2,9 +2,13 @@
 
 namespace App\Controllers;
 
+use App\Providers\Auth;
 use App\Models\Recette;
 use App\Models\Auteur;
 use App\Models\RecetteCategorie;
+use App\Models\Umesure;
+use App\Models\Ingredient;
+use App\Models\Recettehasingredient;
 use App\Providers\View;
 use App\Providers\Validator;
 
@@ -22,6 +26,7 @@ class RecetteController
 
         $recetteCats = new RecetteCategorie;
         $selectCat = $recetteCats->select();
+
         //print_r($select);
         //include('views/recette/index.php');
         if ($select) {
@@ -42,8 +47,18 @@ class RecetteController
 
             $auteur = new Auteur;
             $selectAuteur = $auteur->selectId($data['auteur_id']);
+
+            $umesure = new Umesure;
+            $selectUmesure = $umesure->select();
+    
+            $ingredient = new Ingredient;
+            $selectIngredient = $ingredient->select();
+    
+            $recettehasingredient = new Recettehasingredient;
+            $selectRHI = $recettehasingredient->select();
+
             if ($selectId) {
-                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur]);
+                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
             } else {
                 return View::render('error');
             }
@@ -55,6 +70,7 @@ class RecetteController
 
     public function create()
     {
+        Auth::session();
      
         $recetteCategorie = new RecetteCategorie;
         $recetteCategorieSelect = $recetteCategorie->select();
@@ -62,7 +78,18 @@ class RecetteController
         $recetteAuteur = new Auteur;
         $recetteAuteurSelect = $recetteAuteur->select();
 
-        return View::render('recette/create', ['recetteCategories' => $recetteCategorieSelect, 'recetteAuteurs' => $recetteAuteurSelect]);
+        $umesure = new Umesure;
+        $selectUmesure = $umesure->select();
+
+        $ingredient = new Ingredient;
+        $selectIngredient = $ingredient->select();
+
+        $recettehasingredient = new Recettehasingredient;
+        $selectRHI = $recettehasingredient->select();
+
+        
+
+        return View::render('recette/create', ['recetteCategories' => $recetteCategorieSelect, 'recetteAuteurs' => $recetteAuteurSelect, 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
     }
 
 
@@ -78,10 +105,15 @@ class RecetteController
         $validator->field('auteur_id', $data['auteur_id'])->max(5)->int()->required();
 
         if ($validator->isSuccess()) {
-
             $recette = new Recette;
             $insert = $recette->insert($data);
-
+        
+        if($insert) {
+            $data['recette_id'] = $insert;
+            $recetteHasI = new Recettehasingredient;
+            $insertHasI = $recetteHasI->insert($data);
+        }
+        
             if ($insert) {
                 return View::redirect('recette');
             } else {
@@ -95,6 +127,7 @@ class RecetteController
     
             $recetteAuteur = new Auteur;
             $recetteAuteurSelect = $recetteAuteur->select();
+
             return View::render('recette/create', ['errors' => $errors, 'recette' => $data, 'recetteCategories' => $recetteCategorieSelect, 'recetteAuteurs' => $recetteAuteurSelect]);
         }
     }
