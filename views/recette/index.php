@@ -35,10 +35,11 @@
     </tbody>
 </table>
 
-{% if guest is empty %}
+<!-- Pour filtrer l'affichage au log in log out
+    {% if guest is empty %} -->
 
 <a href="{{ base }}/recette/create" class="btn">Recette Create</a>
 
-{% endif %}
+<!-- {% endif %} -->
 
 {{ include('layouts/footer.php') }}

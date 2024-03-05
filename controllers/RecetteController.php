@@ -50,10 +50,10 @@ class RecetteController
 
             $umesure = new Umesure;
             $selectUmesure = $umesure->select();
-    
+
             $ingredient = new Ingredient;
             $selectIngredient = $ingredient->select();
-    
+
             $recettehasingredient = new Recettehasingredient;
             $selectRHI = $recettehasingredient->select();
 
@@ -70,8 +70,8 @@ class RecetteController
 
     public function create()
     {
-        Auth::session();
-     
+        //Auth::session();
+
         $recetteCategorie = new RecetteCategorie;
         $recetteCategorieSelect = $recetteCategorie->select();
 
@@ -87,7 +87,7 @@ class RecetteController
         $recettehasingredient = new Recettehasingredient;
         $selectRHI = $recettehasingredient->select();
 
-        
+
 
         return View::render('recette/create', ['recetteCategories' => $recetteCategorieSelect, 'recetteAuteurs' => $recetteAuteurSelect, 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
     }
@@ -107,24 +107,31 @@ class RecetteController
         if ($validator->isSuccess()) {
             $recette = new Recette;
             $insert = $recette->insert($data);
-        
-        if($insert) {
-            $data['recette_id'] = $insert;
-            $recetteHasI = new Recettehasingredient;
-            $insertHasI = $recetteHasI->insert($data);
-        }
-        
+
             if ($insert) {
-                return View::redirect('recette');
+
+                //On enregristre un premier ingrédient ici ?
+                /*             $recetteHasI = new Recettehasingredient;
+            $insertHasI = $recetteHasI->insert($data); */
+
+                $umesure = new Umesure;
+                $selectUmesure = $umesure->select();
+
+                $ingredient = new Ingredient;
+                $selectIngredient = $ingredient->select();
+
+                return View::redirect('recettehasingredient/create?id=' . $insert );
+
             } else {
                 return View::render('error');
             }
         } else {
+
             $errors = $validator->getErrors();
 
             $recetteCategorie = new RecetteCategorie;
             $recetteCategorieSelect = $recetteCategorie->select();
-    
+
             $recetteAuteur = new Auteur;
             $recetteAuteurSelect = $recetteAuteur->select();
 
@@ -181,7 +188,7 @@ class RecetteController
 
             $recetteCategorie = new RecetteCategorie;
             $recetteCategorieSelect = $recetteCategorie->select();
-    
+
             $recetteAuteur = new Auteur;
             $recetteAuteurSelect = $recetteAuteur->select();
             return View::render('recette/create', ['errors' => $errors, 'recette' => $data, 'recetteCategories' => $recetteCategorieSelect, 'recetteAuteurs' => $recetteAuteurSelect]);

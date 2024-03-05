@@ -6,8 +6,8 @@
 
 2. Ajout d'ingrédient dans les recettes
 
-    - BD
-    - Code
+    - Ajouter un bouton
+    - Au click, ajouter cet ingrédients à la base de donnée et sur la page
 
 
 
