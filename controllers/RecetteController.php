@@ -197,12 +197,10 @@ class RecetteController
 
     public function delete($data)
     {
-        /*         print_r($data);
-        die(); */
+
         $recettehasingredient = new Recettehasingredient;
         $selectRHI = $recettehasingredient->select();
-        /*         print_r($selectRHI[1]); */
-        /*         echo '<br><br>ici'; */
+
         $i = 0;
         foreach ($selectRHI as $row) {
             if ($row['recette_id'] == $data['id']) {
