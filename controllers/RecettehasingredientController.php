@@ -147,7 +147,8 @@ class RecettehasingredientController
         $recettehasingredient = new  Recettehasingredient;
         $delete = $recettehasingredient->delete($data['id']);
         if ($delete) {
-            return View::redirect('recettehasingredient');
+            return true;
+            /* return View::redirect('recettehasingredient'); */
         } else {
             return View::render('error');
         }

@@ -120,8 +120,7 @@ class RecetteController
                 $ingredient = new Ingredient;
                 $selectIngredient = $ingredient->select();
 
-                return View::redirect('recettehasingredient/create?id=' . $insert );
-
+                return View::redirect('recettehasingredient/create?id=' . $insert);
             } else {
                 return View::render('error');
             }
@@ -198,6 +197,20 @@ class RecetteController
 
     public function delete($data)
     {
+        /*         print_r($data);
+        die(); */
+        $recettehasingredient = new Recettehasingredient;
+        $selectRHI = $recettehasingredient->select();
+        /*         print_r($selectRHI[1]); */
+        /*         echo '<br><br>ici'; */
+        $i = 0;
+        foreach ($selectRHI as $row) {
+            if ($row['recette_id'] == $data['id']) {
+                $RHIdelete = $recettehasingredient->delete($row['recette_id']);
+            }
+        }
+
+
         $recette = new  Recette;
         $delete = $recette->delete($data['id']);
         if ($delete) {
