@@ -140,7 +140,7 @@ class RecetteController
 
 
     public function edit($data = [])
-    {
+    {   print_r($data); die();
 
         if (isset($data['id']) && $data['id'] != null) {
             $recette = new Recette;

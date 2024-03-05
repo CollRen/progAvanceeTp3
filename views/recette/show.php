@@ -16,8 +16,9 @@
         {% for umesure in umesures %}
         {% if umesure.id == recettehasingredient.unite_mesure_id %}
             {% if ingredient.id == recettehasingredient.ingredient_id %}
+            {{recettehasingredient.recette_id}}
                 <ul class="liste_ingredient">
-                    <li><a href="{{ base }}/recettehasingredient/show?id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ umesure.nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ ingredient.nom }}&nbsp;</span></a></li>
+                    <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ umesure.nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ ingredient.nom }}&nbsp;</span></a></li>
                 </ul>
             {% endif %}
             {% endif %}

@@ -84,12 +84,12 @@ class RecettehasingredientController
             if ($insert == 0) {
                 $umesure = new Umesure;
                 $selectUmesure = $umesure->select();
-        
+
                 $ingredient = new Ingredient;
                 $selectIngredient = $ingredient->select();
 
                 $selectRHI =  $recettehasingredient->select();
-/*                 print_r($selectRHI);
+                /*                 print_r($selectRHI);
                 die(); */
 
 
@@ -106,11 +106,19 @@ class RecettehasingredientController
 
     public function edit($data = [])
     {
-        if (isset($data['id']) && $data['id'] != null) {
+        if (isset($data['recette_id']) && $data['recette_id'] != null) {
+
             $recettehasingredient = new Recettehasingredient;
-            $selectId = $recettehasingredient->selectId($data['id']);
+            $selectId = $recettehasingredient->selectId($data['recette_id']);
+
+            $umesure = new Umesure;
+            $selectUmesure = $umesure->select();
+
+            $ingredient = new Ingredient;
+            $selectIngredient = $ingredient->select();
+
             if ($selectId) {
-                return View::render('recettehasingredient/edit', ['recettehasingredient' => $selectId]);
+                return View::render('recettehasingredient/edit', ['recettehasingredient' => $selectId, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
             } else {
                 return View::render('error');
             }
@@ -120,6 +128,11 @@ class RecettehasingredientController
     }
     public function update($data, $get)
     {
+        print_r($data);
+        echo '<br>';
+        print_r($get);
+        die();
+
         // $get['id'];
         $validator = new Validator;
         $validator->field('nom', $data['nom'], 'Le nom')->min(2)->max(45);
