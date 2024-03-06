@@ -110,7 +110,7 @@ class RecettehasingredientController
         if (isset($data['recette_id']) && $data['ingredient_id'] != null) {
 
             $recettehasingredient = new Recettehasingredient;
-            $selectId = $recettehasingredient->selectIdKeys($data['recette_id'], $data['ingredient_id']);
+            $selectId = $recettehasingredient->selectId($data['recette_id'], $data['ingredient_id']);
 
             $umesure = new Umesure;
             $selectUmesure = $umesure->select();
@@ -129,10 +129,7 @@ class RecettehasingredientController
     }
     public function update($data, $get)
     {
-        print_r($data);
-        echo '<br>';
-        print_r($get);
-        die();
+
 
         $validator = new Validator;
         $validator->fieldkeys('ingredient_id', $data['ingredient_id'], 'recette_id', $get['recette_id'])->uniquekeys('Recettehasingredient');
@@ -140,20 +137,21 @@ class RecettehasingredientController
 
         if ($validator->isSuccess()) {
             // Suis rendu là ( le rtr de fetch vaut 0)
+            $data['recette_id'] = $get['recette_id'];
             $recettehasingredient = new Recettehasingredient;
-            $update = $recettehasingredient->update($data, $get['recette_id']);
-            if ($update) {
 
+            $update = $recettehasingredient->update($data, $get['recette_id'], $get['ingredient_id']);
+            
+            if ($update) {
+                /*                 print_r($get); echo '<br>'; print_r($data); die(); */
                 $recette = new Recette;
                 $selectId = $recette->selectId($get['recette_id']);
-
-                $idCategorie = $recette->selectIdWhere($data['id']);
-
+                
                 $recetteCat = new RecetteCategorie;
-                $selectCatId = $recetteCat->selectId($data['recette_categorie_id']);
+                $selectCatId = $recetteCat->selectId($selectId['recette_categorie_id']);
 
                 $auteur = new Auteur;
-                $selectAuteur = $auteur->selectId($data['auteur_id']);
+                $selectAuteur = $auteur->selectId($selectId['auteur_id']);
 
                 $umesure = new Umesure;
                 $selectUmesure = $umesure->select();
@@ -162,7 +160,19 @@ class RecettehasingredientController
                 $selectIngredient = $ingredient->select();
 
                 $recettehasingredient = new Recettehasingredient;
-                $selectRHI = $recettehasingredient->select();
+                $selectRHI = $recettehasingredient->selectId($get['recette_id']);
+
+                foreach ($selectRHI as $row) {
+
+                    /* print_r($row); echo '<br>'; */
+                    $unite = $umesure->selectId($row['unite_mesure_id']);
+                    $ingredients = $ingredient->selectId($row['ingredient_id']);
+                    $ingredientId = $row['ingredient_id'];
+
+                    /* print_r($unite); */ /* echo '<br>' . $unite['nom']; */
+                    $recetteHis[] = ['recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'unite_mesure_nom' => $unite['nom'], 'ingredient_nom' => $ingredients['nom'], 'quantite' => $row['quantite'], 'ingredient_id' => $row['ingredient_id']];
+                    // print_r($recetteHis); die();
+                }
 
                 /*                 print_r($data);
                 echo '<br>';

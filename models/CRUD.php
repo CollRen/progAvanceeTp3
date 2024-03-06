@@ -23,11 +23,18 @@ abstract class CRUD extends \PDO
         }
     }
 
-    final public function selectId($value)
+    final public function selectId($value, $value2 = null)
     {
+        if(!$value2){
         $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
         $stmt = $this->prepare($sql);
         $stmt->bindValue(":$this->primaryKey", $value);
+    } else {
+        $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey AND $this->secondaryKey = :$this->secondaryKey ;";
+        $stmt = $this->prepare($sql);
+        $stmt->bindValue(":$this->primaryKey", $value);
+        $stmt->bindValue(":$this->secondaryKey", $value2);
+    }
         $stmt->execute();
         $count = $stmt->rowCount();
         if ($count == 1) {
@@ -81,6 +88,7 @@ abstract class CRUD extends \PDO
      */
     public function update($data, $id, $id2 = null)
     {
+        print_r($this->selectId($id)); /* echo '<br>' . $id . '<br>' . $id2; */die();
         if ($this->selectId($id)) {
             $data_keys = array_fill_keys($this->fillable, '');
             $data = array_intersect_key($data, $data_keys);
@@ -106,10 +114,6 @@ abstract class CRUD extends \PDO
                 $stmt = $this->prepare($sql);
                 //$stmt->bindValue(":$this->primaryKey", $id);
                 $data[$this->primaryKey] = $id;
-                foreach ($data as $key => $value) {
-                    $stmt->bindValue(":$key", $value);
-                }
-
                 $data[$this->secondaryKey] = $id2;
                 foreach ($data as $key => $value) {
                     $stmt->bindValue(":$key", $value);

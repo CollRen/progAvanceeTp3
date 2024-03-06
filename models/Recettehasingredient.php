@@ -45,12 +45,10 @@ class Recettehasingredient extends CRUD
 
     public function update($data, $id, $id2 = null)
     {   
+        //Tout change sauf l'ingrédient
         $data['recette_id'] = $id;
-     /*    print_r($data); die(); */
-     // C'est le update de l'ingrédient qui fonctionne pas, les autres fonctionnent
 
-
-        if ($this->selectIdKeys($data['recette_id'], $data['ingredient_id'])) {
+        if ($this->selectId($data['recette_id'], $data['ingredient_id'])) {
 
             $data_keys = array_fill_keys($this->fillable, '');
             $data = array_intersect_key($data, $data_keys);
@@ -60,6 +58,7 @@ class Recettehasingredient extends CRUD
                 $fieldName .= "$key = :$key, ";
             }
             $fieldName = rtrim($fieldName, ', ');
+
 
             $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey AND $this->secondaryKey = :$this->secondaryKey ;";
 
@@ -71,8 +70,8 @@ class Recettehasingredient extends CRUD
                 $stmt->bindValue(":$key", $value);
             }
             $stmt->execute();
-
             $count = $stmt->rowCount();
+
             if ($count == 1) {
                 return true;
             } else {
