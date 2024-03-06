@@ -43,7 +43,7 @@ class Recettehasingredient extends CRUD
         }
     }
 
-    public function update($data, $id)
+    public function update($data, $id, $id2 = null)
     {   
         $data['recette_id'] = $id;
      /*    print_r($data); die(); */
@@ -99,4 +99,5 @@ class Recettehasingredient extends CRUD
             return false;
         }
     }
+
 }

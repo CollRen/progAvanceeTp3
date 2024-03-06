@@ -105,7 +105,7 @@ class RecettehasingredientController
     }
 
     public function edit($data = [])
-    {   
+    {
 
         if (isset($data['recette_id']) && $data['ingredient_id'] != null) {
 
@@ -129,23 +129,54 @@ class RecettehasingredientController
     }
     public function update($data, $get)
     {
+        print_r($data);
+        echo '<br>';
+        print_r($get);
+        die();
+
         $validator = new Validator;
         $validator->fieldkeys('ingredient_id', $data['ingredient_id'], 'recette_id', $get['recette_id'])->uniquekeys('Recettehasingredient');
 
 
         if ($validator->isSuccess()) {
- // Suis rendu là ( le rtr de fetch vaut 0)
+            // Suis rendu là ( le rtr de fetch vaut 0)
             $recettehasingredient = new Recettehasingredient;
             $update = $recettehasingredient->update($data, $get['recette_id']);
             if ($update) {
-                echo 'Updated'; die();
-                return View::redirect('recettehasingredient/show?id=' . $get['recette_id']);
+
+                $recette = new Recette;
+                $selectId = $recette->selectId($get['recette_id']);
+
+                $idCategorie = $recette->selectIdWhere($data['id']);
+
+                $recetteCat = new RecetteCategorie;
+                $selectCatId = $recetteCat->selectId($data['recette_categorie_id']);
+
+                $auteur = new Auteur;
+                $selectAuteur = $auteur->selectId($data['auteur_id']);
+
+                $umesure = new Umesure;
+                $selectUmesure = $umesure->select();
+
+                $ingredient = new Ingredient;
+                $selectIngredient = $ingredient->select();
+
+                $recettehasingredient = new Recettehasingredient;
+                $selectRHI = $recettehasingredient->select();
+
+                /*                 print_r($data);
+                echo '<br>';
+                print_r($get);
+                die(); */
+                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
             } else {
-                echo 'Not Updated'; die();
+                echo 'Not Updated';
+                die();
                 return View::render('error');
             }
         } else {
-            echo 'Validator not succeded'; die();
+            echo 'Validator not succeded';
+            die();
             $errors = $validator->getErrors();
             //print_r($errors);
             return View::render('recettehasingredient/edit', ['errors' => $errors, 'recettehasingredient' => $data]);
@@ -163,5 +194,4 @@ class RecettehasingredientController
             return View::render('error');
         }
     }
-
 }

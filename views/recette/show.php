@@ -10,30 +10,32 @@
     </div>
 
     <div class="liste_ingredient--container">
-        {% if recettehasingredients is defined %}{% for recettehasingredient in recettehasingredients %}
+
+        {% if recetteHis is defined %}
 
             
-                {% for ingredient in ingredients %}{% if ingredient.id == recettehasingredient.ingredient_id and recette.id == recettehasingredient.recette_id %}     
+                {% for recetteHi in recetteHis %}
                     
                         
                             
-                            {{recettehasingredient.recette_id}}
+                          {{recetteHi.recette_id}}
                                 <ul class="liste_ingredient">
                                     <div class="btn-delete_rhi">
-                                        <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{% for umesure in umesures %}{% if umesure.id == recettehasingredient.unite_mesure_id %}{{ umesure.nom }}{% endif %}{% endfor %}&nbsp;<span class="liste_ingredient__ingredient">{{ ingredient.nom }}&nbsp;</span></a></li>
-<!--                                         <form action="{{base}}/recettehasingredient/delete" method="post">
+                                        <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recetteHi.recette_id}}&ingredient_id={{ recetteHi.ingredient_id }}"><span class="liste_ingredient__qte"></span>{{ recetteHi.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recetteHi.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recetteHi.ingredient_nom }}&nbsp;</span></a></li>
+<!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">
                                             <input type="hidden" name="recette_id" value="{{ recette.id }}">
                                             <button class="btn block red">Delete</button>
                                         </form> -->
                                     </div>
-                                </ul>
+                                </ul> 
+
                             
                         
                     
-                {% endif %}{% endfor %}
+                {% endfor %}
             
 
-        {% endfor %}{% endif %}
+        {% endif %}
     </div>
 
 </div>
@@ -50,25 +52,3 @@
 </div>
 
 {{ include('layouts/footer.php') }}
-
-{{ recette.titre }}
-{{ recetteCat.nom }}
-{{ auteur.nom }}
-<!-- {{if}}
-{{for}} -->
-
-<!-- 
-    Affichage des noms des ingrédients
-    Je veux
-
-    Quantité, uMesure, nom
- -->
-
-
-
-
-
-
-recettehasingredients
-umesures
-ingredients

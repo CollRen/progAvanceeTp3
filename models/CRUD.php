@@ -32,10 +32,14 @@ abstract class CRUD extends \PDO
         $count = $stmt->rowCount();
         if ($count == 1) {
             return $stmt->fetch();
+        } else if ($count > 1) {
+            return $stmt->fetchAll();
         } else {
             return false;
         }
     }
+
+
 
     public function insert($data)
     {
@@ -72,7 +76,10 @@ abstract class CRUD extends \PDO
         }
     }
 
-    public function update($data, $id)
+    /**
+     * Peut maintenant faire update avec une clé composée
+     */
+    public function update($data, $id, $id2 = null)
     {
         if ($this->selectId($id)) {
             $data_keys = array_fill_keys($this->fillable, '');
@@ -84,13 +91,30 @@ abstract class CRUD extends \PDO
             }
             $fieldName = rtrim($fieldName, ', ');
 
-            $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
+            if (!$id2) {
+                $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
 
-            $stmt = $this->prepare($sql);
-            //$stmt->bindValue(":$this->primaryKey", $id);
-            $data[$this->primaryKey] = $id;
-            foreach ($data as $key => $value) {
-                $stmt->bindValue(":$key", $value);
+                $stmt = $this->prepare($sql);
+                //$stmt->bindValue(":$this->primaryKey", $id);
+                $data[$this->primaryKey] = $id;
+                foreach ($data as $key => $value) {
+                    $stmt->bindValue(":$key", $value);
+                }
+            } else {
+                $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey AND $this->secondaryKey = :$this->secondaryKey;";
+
+                $stmt = $this->prepare($sql);
+                //$stmt->bindValue(":$this->primaryKey", $id);
+                $data[$this->primaryKey] = $id;
+                foreach ($data as $key => $value) {
+                    $stmt->bindValue(":$key", $value);
+                }
+
+                $data[$this->secondaryKey] = $id2;
+                foreach ($data as $key => $value) {
+                    $stmt->bindValue(":$key", $value);
+                }
+
             }
             $stmt->execute();
 
