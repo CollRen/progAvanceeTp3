@@ -1,4 +1,4 @@
-{{ include('layouts/header.php', { title: 'Create RHI'})}}
+{{ include('layouts/header.php', { title: 'Edit RHI'})}}
 
 <div class="container">
     <h2>Ajuster cet ingrédient</h2>
@@ -25,7 +25,9 @@
                     <td>
                         <select name="unite_mesure_id">
                             {% for umesure in umesures %}
-                            <option value="{{ umesure.id }}">{{ umesure.nom }}</option>
+                            
+                            <option value="{{ umesure.id }}"{% if umesure.id == recettehasingredient.unite_mesure_id %} selected {% endif %}>{{ umesure.nom }}</option>
+                            
                             {% endfor %}
                         </select>
                     </td>
@@ -33,7 +35,7 @@
                     <td>
                         <select name="ingredient_id">
                             {% for ingredient in ingredients %}
-                            <option value="{{ ingredient.id }}">{{ ingredient.nom }}</option>
+                            <option value="{{ ingredient.id }}"{% if ingredient.id == recettehasingredient.ingredient_id %} selected {% endif %}>{{ ingredient.nom }}</option>
                             {% endfor %}
                         </select>
                     </td>
