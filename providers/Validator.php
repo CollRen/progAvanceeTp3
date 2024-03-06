@@ -7,6 +7,10 @@ class Validator
     private $errors = array();
     private $key;
     private $value;
+    private $key1;
+    private $value1;
+    private $key2;
+    private $value2;
     private $name;
 
     public function field($key, $value, $name = null)
@@ -15,6 +19,20 @@ class Validator
         $this->value = $value;
         if ($name == null) {
             $this->name = ucfirst($key);
+        } else {
+            $this->name = ucfirst($name);
+        }
+        return $this;
+    }
+    
+    public function fieldkeys($key1, $value1, $key2, $value2, $name = null)
+    {
+        $this->key1 = $key1;
+        $this->key2 = $key2;
+        $this->value1 = $value1;
+        $this->value2 = $value2;
+        if ($name == null) {
+            $this->name = ucfirst($key1);
         } else {
             $this->name = ucfirst($name);
         }
@@ -104,6 +122,18 @@ class Validator
         }
         return $this;
     }
+
+    public function uniquekeys($model)
+    {
+        $model = 'App\\Models\\' . $model;
+        $model = new $model;
+        $unique = $model->uniquekeys($this->key1, $this->value1, $this->key2, $this->value2);
+        if ($unique) {
+            $this->errors[$this->key1] = "This $this->name must be unique";
+        }
+        return $this;
+    }
+
     ////////////////////////////////////////////////////////
     public function isSuccess()
     {

@@ -105,11 +105,12 @@ class RecettehasingredientController
     }
 
     public function edit($data = [])
-    {
-        if (isset($data['recette_id']) && $data['recette_id'] != null) {
+    {   
+
+        if (isset($data['recette_id']) && $data['ingredient_id'] != null) {
 
             $recettehasingredient = new Recettehasingredient;
-            $selectId = $recettehasingredient->selectId($data['recette_id']);
+            $selectId = $recettehasingredient->selectIdKeys($data['recette_id'], $data['ingredient_id']);
 
             $umesure = new Umesure;
             $selectUmesure = $umesure->select();
@@ -128,27 +129,23 @@ class RecettehasingredientController
     }
     public function update($data, $get)
     {
-        print_r($data);
-        echo '<br>';
-        print_r($get);
-        die();
-
-        // $get['id'];
         $validator = new Validator;
-        $validator->field('nom', $data['nom'], 'Le nom')->min(2)->max(45);
-        $validator->field('ingredient_categorie_id', $data['ingredient_categorie_id'], 'Le ID')->min(1)->max(45);
+        $validator->fieldkeys('ingredient_id', $data['ingredient_id'], 'recette_id', $get['recette_id'])->uniquekeys('Recettehasingredient');
 
 
         if ($validator->isSuccess()) {
+ // Suis rendu là ( le rtr de fetch vaut 0)
             $recettehasingredient = new Recettehasingredient;
-            $update = $recettehasingredient->update($data, $get['id']);
-
+            $update = $recettehasingredient->update($data, $get['recette_id']);
             if ($update) {
-                return View::redirect('recettehasingredient/show?id=' . $get['id']);
+                echo 'Updated'; die();
+                return View::redirect('recettehasingredient/show?id=' . $get['recette_id']);
             } else {
+                echo 'Not Updated'; die();
                 return View::render('error');
             }
         } else {
+            echo 'Validator not succeded'; die();
             $errors = $validator->getErrors();
             //print_r($errors);
             return View::render('recettehasingredient/edit', ['errors' => $errors, 'recettehasingredient' => $data]);
@@ -158,7 +155,7 @@ class RecettehasingredientController
     public function delete($data)
     {
         $recettehasingredient = new  Recettehasingredient;
-        $delete = $recettehasingredient->delete($data['id']);
+        $delete = $recettehasingredient->delete($data['recette_id']);
         if ($delete) {
             return true;
             /* return View::redirect('recettehasingredient'); */
@@ -166,4 +163,5 @@ class RecettehasingredientController
             return View::render('error');
         }
     }
+
 }

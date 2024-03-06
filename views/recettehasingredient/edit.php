@@ -19,7 +19,7 @@
                 <tr>
                     <td>
                         <label for="quantite">Quantité: </label>
-                        <input type="number" name="quantite" min="0.25" max="100" value="0.25" step="0.25" />
+                        <input type="number" name="quantite" min="0.25" max="100" value="{{ recettehasingredient.quantite }}" step="0.25" />
                     </td>
 
                     <td>
