@@ -1,33 +1,40 @@
 # progAvanceeTp3
 
-1. On peut ajouter des ingrédients... on voudrait que ce soit unique...
+Priorité
+
+> 1. Fichier SQL -- Simplifier, rendre unique certains champs
+
+> 2. Validator -- tout en respect de la BD -> GSheet
+
+> 3. Journal de connexion
+
+> 4. Style simple et funky
+
+> 5. Fonctionnalité d'impression
+
+> 6. Nettoyage
+    - print_r, var_dump, commenter, enlever le code inutile
+
+> 7. Pousser en ligne
 
 
-1. style
+1. On peut ajouter des ingrédients identique, même qté etc.
+    - Validator
+
+2. Gestion des privilège, voir GSheet
+
+
+3. style
     - Aller chercher de l'inspiration
     - recette/show
 
-2. Ajout d'ingrédient dans les recettes
-
-    - Ajouter un bouton
-    - Au click, ajouter cet ingrédients à la base de donnée et sur la page
-
-
 3. DB
 
-- Enlever les auto-increment minimum...
+    - Enlever les auto-increment minimum...
+
+4. Ajouter la fonctionnalité d'impression de recette
 
 
-
-
-Recette has ingredient
- 	Permissions
-	Fonctionnalité suppl.
-Enlever l'option de pouvoir editer une recette sans login
-
-
-
-Logique Login Logout
 
 [Lien local](http://localhost:8000/htdSession_H23_24/php/travaux/sommatifs/tp3/recette_MVC_tp3/recette)
 
