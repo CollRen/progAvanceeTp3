@@ -12,16 +12,22 @@
 <body>
     <nav>
         <ul>
+            <li><a href="{{base}}/recette/create">Créer une recette</a></li>
+            <li><a href="{{base}}/auteur">Auteurs</a></li>
+            <li><a href="{{base}}/ingredient">Ingrédients</a></li>
+            <li><a href="{{base}}/categorie">Catégorie</a></li>
+            <li><a href="{{base}}/ingredientCat">Catégorie d'ingrédients</a></li>
+            <li><a href="{{base}}/umesure">Unité de mesure</a></li>
             <!-- Menu administrateur -->
             {% if session.privilege_id == 1 %}
             <li><a href="{{base}}/user/create">Users</a></li>
             <li><a href="{{base}}/recette/create">Créer une recette</a></li>
 
-<!--             <li><a href="{{base}}/auteur">Auteurs</a></li>
+            <li><a href="{{base}}/auteur">Auteurs</a></li>
             <li><a href="{{base}}/ingredient">Ingrédients</a></li>
             <li><a href="{{base}}/categorie">Catégorie</a></li>
             <li><a href="{{base}}/ingredientCat">Catégorie d'ingrédients</a></li>
-            <li><a href="{{base}}/umesure">Unité de mesure</a></li> -->
+            <li><a href="{{base}}/umesure">Unité de mesure</a></li>
             {% endif %}
 
 
@@ -34,9 +40,9 @@
 
             <!-- Menu invité -->
 
-            
-            
-            
+
+
+
             {% if guest %}
             <li><a href="{{base}}/recette">Liste de recette</a></li>
             <li><a href="{{base}}/login">Login</a></li>

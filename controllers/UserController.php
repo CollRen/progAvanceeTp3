@@ -14,7 +14,7 @@ class UserController
     public function create()
     {
         if ($_SESSION['privilege_id'] == 1) {
-            echo $_SESSION['privilege_id'];
+            //echo $_SESSION['privilege_id'];
             $privilege = new Privilege;
             $privileges = $privilege->select('privilege');
             return View::render('user/create', ['privileges' => $privileges]);

@@ -88,7 +88,7 @@ abstract class CRUD extends \PDO
      */
     public function update($data, $id, $id2 = null)
     {
-        print_r($this->selectId($id)); /* echo '<br>' . $id . '<br>' . $id2; */die();
+        //print_r($this->selectId($id)); /* echo '<br>' . $id . '<br>' . $id2; */die();
         if ($this->selectId($id)) {
             $data_keys = array_fill_keys($this->fillable, '');
             $data = array_intersect_key($data, $data_keys);

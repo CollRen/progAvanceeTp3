@@ -27,10 +27,13 @@ SET time_zone = "+00:00";
 -- Structure de la table `auteur`
 --
 
+
+
+
 CREATE TABLE `auteur` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(45) DEFAULT NULL,
-  `prenom` varchar(45) DEFAULT NULL
+  `id` INT NOT NULL,
+  `nom` VARCHAR(45) DEFAULT NULL,
+  `prenom` VARCHAR(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -52,9 +55,9 @@ INSERT INTO `auteur` (`id`, `nom`, `prenom`) VALUES
 --
 
 CREATE TABLE `ingredient` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(45) NOT NULL,
-  `ingredient_categorie_id` int(11) DEFAULT NULL
+  `id` INT NOT NULL,
+  `nom` VARCHAR(45) NOT NULL,
+  `ingredient_categorie_id` INT DEFAULT NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -77,8 +80,8 @@ INSERT INTO `ingredient` (`id`, `nom`, `ingredient_categorie_id`) VALUES
 --
 
 CREATE TABLE `ingredient_categorie` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(45) DEFAULT NULL
+  `id` INT NOT NULL,
+  `nom` VARCHAR(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -100,13 +103,13 @@ INSERT INTO `ingredient_categorie` (`id`, `nom`) VALUES
 --
 
 CREATE TABLE `recette` (
-  `id` int(11) NOT NULL,
-  `titre` varchar(60) NOT NULL,
+  `id` INT NOT NULL,
+  `titre` VARCHAR(60) NOT NULL,
   `description` text NOT NULL,
   `temps_preparation` double NOT NULL DEFAULT '1',
   `temps_cuisson` double NOT NULL DEFAULT '1',
-  `recette_categorie_id` int(4) NOT NULL DEFAULT '1',
-  `auteur_id` int(4) NOT NULL DEFAULT '1'
+  `recette_categorie_id` INT(4) NOT NULL DEFAULT '1',
+  `auteur_id` INT(4) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -127,8 +130,8 @@ INSERT INTO `recette` (`id`, `titre`, `description`, `temps_preparation`, `temps
 --
 
 CREATE TABLE `recette_categorie` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(45) DEFAULT NULL
+  `id` INT NOT NULL,
+  `nom` VARCHAR(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -149,10 +152,10 @@ INSERT INTO `recette_categorie` (`id`, `nom`) VALUES
 --
 
 CREATE TABLE `recette_has_ingredient` (
-  `recette_id` int(11) DEFAULT NULL,
-  `ingredient_id` int(11) DEFAULT NULL,
-  `quantite` varchar(45) DEFAULT NULL,
-  `unite_mesure_id` int(11) DEFAULT NULL
+  `recette_id` INT DEFAULT NULL,
+  `ingredient_id` INT DEFAULT NULL,
+  `quantite` VARCHAR(45) DEFAULT NULL,
+  `unite_mesure_id` INT DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -162,8 +165,8 @@ CREATE TABLE `recette_has_ingredient` (
 --
 
 CREATE TABLE `unite_mesure` (
-  `id` int(11) NOT NULL,
-  `nom` varchar(20) DEFAULT NULL
+  `id` INT NOT NULL,
+  `nom` VARCHAR(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -180,6 +183,44 @@ INSERT INTO `unite_mesure` (`id`, `nom`) VALUES
 (7, '---'),
 (8, 'oz'),
 (9, 'Cup');
+
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `user`
+--
+
+CREATE TABLE `user` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `privilege_id` INT NOT NULL,
+  `create_at` TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `privilege`
+--
+
+CREATE TABLE `privilege` (
+  `id` INT NOT NULL,
+  `privilege` VARCHAR(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO `privilege` (`privilege`) VALUES
+(`Admin`),
+('Employee'),
+('Manager'),
+('Auteur');
 
 --
 -- Index pour les tables déchargées
@@ -237,37 +278,37 @@ ALTER TABLE `unite_mesure`
 -- AUTO_INCREMENT pour la table `auteur`
 --
 ALTER TABLE `auteur`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `ingredient`
 --
 ALTER TABLE `ingredient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT pour la table `ingredient_categorie`
 --
 ALTER TABLE `ingredient_categorie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT pour la table `recette`
 --
 ALTER TABLE `recette`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `recette_categorie`
 --
 ALTER TABLE `recette_categorie`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT pour la table `unite_mesure`
 --
 ALTER TABLE `unite_mesure`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Contraintes pour les tables déchargées
@@ -279,6 +320,65 @@ ALTER TABLE `unite_mesure`
 ALTER TABLE `recette_has_ingredient`
   ADD CONSTRAINT `fk_ingredient_id` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`),
   ADD CONSTRAINT `fk_recette_id` FOREIGN KEY (`recette_id`) REFERENCES `recette` (`id`);
+
+CREATE TABLE `user` (
+  `id` INT NOT NULL,
+  `name` VARCHAR(50) NOT NULL,
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `privilege_id` INT NOT NULL,
+  `create_at` TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour la table `privilege`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`);
+  
+  
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `privilege`
+--
+
+CREATE TABLE `privilege` (
+  `id` INT NOT NULL,
+  `privilege` VARCHAR(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour la table `privilege`
+--
+ALTER TABLE `privilege`
+  ADD PRIMARY KEY (`id`);
+
+
+
+--
+-- Index pour la table `user`
+--
+ALTER TABLE `user`
+  ADD KEY `fk_privilege_id` (`privilege_id`);
+  
+  --
+-- Contraintes pour la table `user`
+--
+ALTER TABLE `user`
+  ADD CONSTRAINT `fk_privilege_id` FOREIGN KEY (`privilege_id`) REFERENCES `privilege` (`id`);
+
+INSERT INTO `privilege` (`id`, `privilege`) VALUES
+(1, 'Admin'),
+(2, 'Employee'),
+(3, 'Manager'),
+(4, 'Auteur');
+
+
+ALTER TABLE `user`
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

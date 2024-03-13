@@ -19,7 +19,7 @@ class AuteurController
      */
     public function __construct()
     {
-        Auth::session();
+        //Auth::session();
         // Auth::session() && $_SESSION['privilege_id'] == 1;
 
         // Le mettre ici si on veut que ça s'applique à toutes les méthodes

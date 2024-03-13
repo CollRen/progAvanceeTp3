@@ -56,7 +56,10 @@ class RecetteController
 
             $recettehasingredient = new Recettehasingredient;
             $selectRHI = $recettehasingredient->selectId($data['id']);
-
+            
+            $recetteHis[] = '';
+            
+            if($selectRHI) {
             foreach($selectRHI as $row) {
 
                 /* print_r($row); echo '<br>'; */
@@ -67,7 +70,7 @@ class RecetteController
                 /* print_r($unite); */ /* echo '<br>' . $unite['nom']; */
                 $recetteHis[] = ['recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'unite_mesure_nom' => $unite['nom'], 'ingredient_nom' => $ingredients['nom'], 'quantite' => $row['quantite'], 'ingredient_id' => $row['ingredient_id']];
                 // print_r($recetteHis); die();
-            }
+            }}
 
             if ($selectId) {
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recetteHis' => $recetteHis]);

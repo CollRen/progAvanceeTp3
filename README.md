@@ -1,5 +1,8 @@
 # progAvanceeTp3
 
+1. On peut ajouter des ingrédients... on voudrait que ce soit unique...
+
+
 1. style
     - Aller chercher de l'inspiration
     - recette/show
@@ -10,7 +13,9 @@
     - Au click, ajouter cet ingrédients à la base de donnée et sur la page
 
 
+3. DB
 
+- Enlever les auto-increment minimum...
 
 
 

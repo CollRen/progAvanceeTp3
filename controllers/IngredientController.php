@@ -30,7 +30,7 @@ class IngredientController
     public function show($data = [])
     {
         if (isset($data['id']) && $data['id'] != null) {
-            print_r($data);
+            //print_r($data);
             $ingredient = new Ingredient;
             $selectId = $ingredient->selectId($data['id']);
 
