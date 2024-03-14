@@ -18,7 +18,7 @@
                     
                         
                             
-                          {{recettehasingredient.recette_id}}
+
                                 <ul class="liste_ingredient">
                                     <div class="btn-delete_rhi">
                                         <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}&id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></a></li>
