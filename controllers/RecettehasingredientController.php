@@ -56,7 +56,8 @@ class RecettehasingredientController
     }
 
     public function create($data = NULL)
-    {
+    {  
+        
 
         $data['id'] ? $recette_id = $data['id'] : $recette_id = $data['recette_id'];
 
@@ -71,6 +72,7 @@ class RecettehasingredientController
 
     public function store($data)
     {
+        
 
         /*         $validator = new Validator;
         $validator->field('nom', $data['nom'], 'Le nom')->min(2)->max(45);
@@ -81,7 +83,9 @@ class RecettehasingredientController
             $recettehasingredient = new Recettehasingredient;
             $insert = $recettehasingredient->insert($data);
 
-            if ($insert == 0) {
+            
+            if ($insert) {
+
                 $umesure = new Umesure;
                 $selectUmesure = $umesure->select();
 
@@ -89,8 +93,6 @@ class RecettehasingredientController
                 $selectIngredient = $ingredient->select();
 
                 $selectRHI =  $recettehasingredient->select();
-                /*                 print_r($selectRHI);
-                die(); */
 
 
                 return View::render('recettehasingredient/create', ['recette_id' => $data['recette_id'], 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
@@ -107,11 +109,11 @@ class RecettehasingredientController
     public function edit($data = [])
     {
 
-        if (isset($data['recette_id']) && $data['ingredient_id'] != null) {
+        if (isset($data['id']) && $data['ingredient_id'] != null) {
 
             $recettehasingredient = new Recettehasingredient;
-            $selectId = $recettehasingredient->selectId($data['recette_id'], $data['ingredient_id']);
-
+            $selectId = $recettehasingredient->selectId($data['id']);
+            // Array ( [id] => 12 [0] => 12 [recette_id] => 6 [1] => 6 [ingredient_id] => 1 [2] => 1 [quantite] => [3] => [unite_mesure_id] => 2 [4] => 2 )
             $umesure = new Umesure;
             $selectUmesure = $umesure->select();
 
@@ -119,7 +121,7 @@ class RecettehasingredientController
             $selectIngredient = $ingredient->select();
 
             if ($selectId) {
-                return View::render('recettehasingredient/edit', ['recettehasingredient' => $selectId, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
+                return View::render('recettehasingredient/edit', ['recettehasingredients' => $selectId, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
             } else {
                 return View::render('error');
             }

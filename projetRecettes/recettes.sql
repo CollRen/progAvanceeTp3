@@ -30,7 +30,7 @@ SET time_zone = "+00:00";
 
 
 
-CREATE TABLE `auteur` (
+CREATE TABLE `recettes.auteur` (
   `id` INT NOT NULL,
   `nom` VARCHAR(45) DEFAULT NULL,
   `prenom` VARCHAR(45) DEFAULT NULL
@@ -54,7 +54,7 @@ INSERT INTO `auteur` (`id`, `nom`, `prenom`) VALUES
 -- Structure de la table `ingredient`
 --
 
-CREATE TABLE `ingredient` (
+CREATE TABLE `recettes.ingredient` (
   `id` INT NOT NULL,
   `nom` VARCHAR(45) NOT NULL,
   `ingredient_categorie_id` INT DEFAULT NOT NULL
@@ -79,7 +79,7 @@ INSERT INTO `ingredient` (`id`, `nom`, `ingredient_categorie_id`) VALUES
 -- Structure de la table `ingredient_categorie`
 --
 
-CREATE TABLE `ingredient_categorie` (
+CREATE TABLE `recettes.ingredient_categorie` (
   `id` INT NOT NULL,
   `nom` VARCHAR(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -89,12 +89,12 @@ CREATE TABLE `ingredient_categorie` (
 --
 
 INSERT INTO `ingredient_categorie` (`id`, `nom`) VALUES
-(1, 'Les épices'),
-(2, 'Fromage'),
-(3, 'Viande'),
-(4, 'Fines herbes'),
-(5, 'Fruit'),
-(6, 'Légume');
+('Les épices'),
+('Fromage'),
+('Viande'),
+('Fines herbes'),
+('Fruit'),
+('Légume');
 
 -- --------------------------------------------------------
 
@@ -102,7 +102,7 @@ INSERT INTO `ingredient_categorie` (`id`, `nom`) VALUES
 -- Structure de la table `recette`
 --
 
-CREATE TABLE `recette` (
+CREATE TABLE `recettes.recette` (
   `id` INT NOT NULL,
   `titre` VARCHAR(60) NOT NULL,
   `description` text NOT NULL,
@@ -129,7 +129,7 @@ INSERT INTO `recette` (`id`, `titre`, `description`, `temps_preparation`, `temps
 -- Structure de la table `recette_categorie`
 --
 
-CREATE TABLE `recette_categorie` (
+CREATE TABLE `recettes.recette_categorie` (
   `id` INT NOT NULL,
   `nom` VARCHAR(45) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -151,7 +151,8 @@ INSERT INTO `recette_categorie` (`id`, `nom`) VALUES
 -- Structure de la table `recette_has_ingredient`
 --
 
-CREATE TABLE `recette_has_ingredient` (
+CREATE TABLE `recettes.recette_has_ingredient` (
+  `id` INT NOT NULL,
   `recette_id` INT DEFAULT NULL,
   `ingredient_id` INT DEFAULT NULL,
   `quantite` VARCHAR(45) DEFAULT NULL,
@@ -164,7 +165,7 @@ CREATE TABLE `recette_has_ingredient` (
 -- Structure de la table `unite_mesure`
 --
 
-CREATE TABLE `unite_mesure` (
+CREATE TABLE `recettes.unite_mesure` (
   `id` INT NOT NULL,
   `nom` VARCHAR(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -193,7 +194,7 @@ INSERT INTO `unite_mesure` (`id`, `nom`) VALUES
 -- Structure de la table `user`
 --
 
-CREATE TABLE `user` (
+CREATE TABLE `recettes.user` (
   `id` INT NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `username` VARCHAR(50) NOT NULL,
@@ -210,7 +211,7 @@ CREATE TABLE `user` (
 -- Structure de la table `privilege`
 --
 
-CREATE TABLE `privilege` (
+CREATE TABLE `recettes.privilege` (
   `id` INT NOT NULL,
   `privilege` VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -261,8 +262,7 @@ ALTER TABLE `recette_categorie`
 -- Index pour la table `recette_has_ingredient`
 --
 ALTER TABLE `recette_has_ingredient`
-  ADD KEY `fk_recette_id` (`recette_id`),
-  ADD KEY `fk_ingredient_id` (`ingredient_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Index pour la table `unite_mesure`
@@ -278,37 +278,37 @@ ALTER TABLE `unite_mesure`
 -- AUTO_INCREMENT pour la table `auteur`
 --
 ALTER TABLE `auteur`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `ingredient`
 --
 ALTER TABLE `ingredient`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `ingredient_categorie`
 --
 ALTER TABLE `ingredient_categorie`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `recette`
 --
 ALTER TABLE `recette`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `recette_categorie`
 --
 ALTER TABLE `recette_categorie`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT pour la table `unite_mesure`
 --
 ALTER TABLE `unite_mesure`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour les tables déchargées
@@ -320,8 +320,9 @@ ALTER TABLE `unite_mesure`
 ALTER TABLE `recette_has_ingredient`
   ADD CONSTRAINT `fk_ingredient_id` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredient` (`id`),
   ADD CONSTRAINT `fk_recette_id` FOREIGN KEY (`recette_id`) REFERENCES `recette` (`id`);
+  ADD CONSTRAINT `fk_unite_mesure_id` FOREIGN KEY (`unite_mesure_id`) REFERENCES `unite_mesure` (`id`);
 
-CREATE TABLE `user` (
+CREATE TABLE `recettes.user` (
   `id` INT NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `username` VARCHAR(50) NOT NULL,
@@ -344,7 +345,7 @@ ALTER TABLE `user`
 -- Structure de la table `privilege`
 --
 
-CREATE TABLE `privilege` (
+CREATE TABLE `recettes.privilege` (
   `id` INT NOT NULL,
   `privilege` VARCHAR(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -377,7 +378,7 @@ INSERT INTO `privilege` (`id`, `privilege`) VALUES
 
 
 ALTER TABLE `user`
-  MODIFY `id` INT NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` INT NOT NULL AUTO_INCREMENT;
 
 COMMIT;
 

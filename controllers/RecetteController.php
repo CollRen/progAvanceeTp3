@@ -66,14 +66,15 @@ class RecetteController
                 $unite = $umesure->selectId($row['unite_mesure_id']);
                 $ingredients = $ingredient->selectId($row['ingredient_id']);
                 $ingredientId = $row['ingredient_id'];
+                $id = $row['id'];
 
                 /* print_r($unite); */ /* echo '<br>' . $unite['nom']; */
-                $recetteHis[] = ['recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'unite_mesure_nom' => $unite['nom'], 'ingredient_nom' => $ingredients['nom'], 'quantite' => $row['quantite'], 'ingredient_id' => $row['ingredient_id']];
+                $recetteHis[] = ['quantite' => $row['quantite'], 'id' => $row['id'], 'recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'unite_mesure_nom' => $unite['nom'], 'ingredient_nom' => $ingredients['nom'], 'quantite' => $row['quantite'], 'ingredient_id' => $row['ingredient_id']];
                 // print_r($recetteHis); die();
             }}
 
             if ($selectId) {
-                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recetteHis' => $recetteHis]);
+                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recettehasingredients' => $recetteHis]);
             } else {
                 return View::render('error');
             }
