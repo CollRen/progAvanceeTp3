@@ -59,7 +59,7 @@ class Recettehasingredient extends CRUD
             $fieldName = rtrim($fieldName, ', ');
 
 
-            $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey AND $this->secondaryKey = :$this->secondaryKey ;";
+            $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
 
             $stmt = $this->prepare($sql);
             //$stmt->bindValue(":$this->primaryKey", $id);
@@ -84,11 +84,11 @@ class Recettehasingredient extends CRUD
     final public function selectIdKeys($value1, $value2)
     {
 
-        $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey AND $this->secondaryKey = :$this->secondaryKey";
+        $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey;";
         $stmt = $this->prepare($sql);
 /*         $stmt->bindValue(":$this->primaryKey", $value1);
         $stmt->bindValue(":$this->secondaryKey", $value2); */
-        $stmt->execute(array(":$this->primaryKey" => $value1, ":$this->secondaryKey" => $value2));
+        $stmt->execute(array(":$this->primaryKey" => $value1));
         $count = $stmt->rowCount();
 
         if ($count == 1) {

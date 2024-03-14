@@ -23,18 +23,12 @@ abstract class CRUD extends \PDO
         }
     }
 
-    final public function selectId($value, $value2 = null)
+    final public function selectId($value)
     {
-        if(!$value2){
-        $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey";
+
+        $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey;";
         $stmt = $this->prepare($sql);
         $stmt->bindValue(":$this->primaryKey", $value);
-    } else {
-        $sql = "SELECT * FROM $this->table WHERE $this->primaryKey = :$this->primaryKey AND $this->secondaryKey = :$this->secondaryKey ;";
-        $stmt = $this->prepare($sql);
-        $stmt->bindValue(":$this->primaryKey", $value);
-        $stmt->bindValue(":$this->secondaryKey", $value2);
-    }
         $stmt->execute();
         $count = $stmt->rowCount();
         if ($count == 1) {
@@ -109,12 +103,11 @@ abstract class CRUD extends \PDO
                     $stmt->bindValue(":$key", $value);
                 }
             } else {
-                $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey AND $this->secondaryKey = :$this->secondaryKey;";
+                $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
 
                 $stmt = $this->prepare($sql);
                 //$stmt->bindValue(":$this->primaryKey", $id);
                 $data[$this->primaryKey] = $id;
-                $data[$this->secondaryKey] = $id2;
                 foreach ($data as $key => $value) {
                     $stmt->bindValue(":$key", $value);
                 }
