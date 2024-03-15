@@ -46,27 +46,46 @@ class RecetteController
             $selectCatId = $recetteCat->selectId($data['recette_categorie_id']);
 
             $auteur = new Auteur;
-            $selectAuteur = $auteur->selectId($data['auteur_id']);
+            $selectAuteurId = $auteur->selectId($data['auteur_id']);
 
             $umesure = new Umesure;
             $selectUmesure = $umesure->select();
 
             $ingredient = new Ingredient;
-            $selectIngredient = $ingredient->select();
+            $selectIngredients = $ingredient->select();
 
             $recettehasingredient = new Recettehasingredient;
             $selectRHI = $recettehasingredient->selectId($data['id'], 'recette_id');
             
+            
+            
             $recetteHis[] = '';
-            if($selectRHI) {
+            $i = 0;
+
+            if(is_array($selectRHI[0])) {
             foreach($selectRHI as $row) {
-                
-                $recetteHis[] = ['quantite' => $row['quantite'], 'id' => $row['id'], 'recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'ingredient_id' => $row['ingredient_id']];
 
-            };}
+                $nomIngredients[$i] = $ingredient->selectId($row['ingredient_id']);
+                $nomUmesure[$i] = $umesure->selectId($row['unite_mesure_id']);
+                $nomIngredients[$i] = $ingredient->selectId($row['ingredient_id']);
+                $recetteHis[$i] = ['quantite' => $row['quantite'], 'id' => $row['id'], 'recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'ingredient_id' => $row['ingredient_id'], 'unite_mesure_nom' => $nomUmesure[$i]['nom'], 'ingredient_nom' => $nomIngredients[$i]['nom']];
+                $i++;
+            };} else {
+                // print_r($selectRHI); die();
+                $row = $selectRHI;
+                $nomIngredients = $ingredient->selectId($row['ingredient_id']);
+                $nomUmesure = $umesure->selectId($row['unite_mesure_id']);
+                $nomIngredients = $ingredient->selectId($row['ingredient_id']);
+                $recetteHis = ['quantite' => $row['quantite'], 'id' => $row['id'], 'recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'ingredient_id' => $row['ingredient_id'], 'unite_mesure_nom' => $nomUmesure['nom'], 'ingredient_nom' => $nomIngredients['nom']];
+            }
 
-            if ($selectId) {
-                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recettehasingredients' => $recetteHis]);
+
+
+            if ($selectId && is_array($selectRHI[0])) {
+                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredients' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
+            } elseif ($selectId){
+                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredient' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
+
             } else {
                 return View::render('error');
             }

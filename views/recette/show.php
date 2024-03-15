@@ -11,31 +11,60 @@
 
     <div class="liste_ingredient--container">
 
+        
         {% if recettehasingredients is defined %}
 
-            
-                {% for recettehasingredient in recettehasingredients %}
-                    
-                        
-                            
+        {% for recettehasingredient in recettehasingredients %}
 
-                                <ul class="liste_ingredient">
-                                    <div class="btn-delete_rhi">
-                                        <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}&id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></a></li>
-<!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">
+        <ul class="liste_ingredient">
+
+            <div class="btn-delete_rhi">
+
+                <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}&id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></a></li>
+                <!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">
                                             <input type="hidden" name="recette_id" value="{{ recette.id }}">
                                             <button class="btn block red">Delete</button>
                                         </form> -->
-                                    </div>
-                                </ul> 
+            </div>
+        </ul>
 
-                            
-                        
-                    
-                {% endfor %}
-            
+
+
+
+        {% endfor %}
+
+
 
         {% endif %}
+
+
+        {% if recettehasingredient is defined %}
+
+
+
+<ul class="liste_ingredient">
+
+    <div class="btn-delete_rhi">
+
+        <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}&id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></a></li>
+        <!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">
+                                    <input type="hidden" name="recette_id" value="{{ recette.id }}">
+                                    <button class="btn block red">Delete</button>
+                                </form> -->
+    </div>
+</ul>
+
+
+
+
+
+
+
+
+{% endif %}
+
+
+
     </div>
 
 </div>
