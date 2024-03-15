@@ -111,3 +111,36 @@ INSERT INTO `recettes`.`recette_has_ingredient`
 `unite_mesure_id`)
 VALUES
 (1,1,1,1);
+
+
+
+CREATE TABLE recettes.user (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `name` VARCHAR(50) NOT NULL,
+  `username` VARCHAR(50) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `privilege_id` INT NOT NULL,
+  `create_at` TIMESTAMP
+);
+
+CREATE TABLE recettes.privilege (
+  `id` INT AUTO_INCREMENT PRIMARY KEY,
+  `privilege` VARCHAR(50) NOT NULL
+);
+
+INSERT INTO recettes.privilege (`privilege`) VALUES
+('Admin'),
+('Manager'),
+('Auteur');
+
+
+CREATE TABLE recettes.journal(
+id INT AUTO_INCREMENT PRIMARY KEY,
+ip_address VARCHAR(45),
+date TIMESTAMP(6),
+username VARCHAR(50),
+page_visited VARCHAR(125),
+user_id INT,
+CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES user (id)
+);

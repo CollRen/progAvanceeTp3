@@ -8,6 +8,12 @@ Priorité
 
 > 3. Journal de connexion
 
+- Adresse IP
+- Date
+- Nom d'utilisateur (si l'utilisateur est connecté, sinon s'inscrire en tant que visiteur)
+- Page visitée.
+- Accessible à partir du menu
+
 > 4. Style simple et funky
 
 > 5. Fonctionnalité d'impression

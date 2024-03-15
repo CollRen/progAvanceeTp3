@@ -12,8 +12,8 @@ class UserController
 {
 
     public function create()
-    {
-        if ($_SESSION['privilege_id'] == 1) {
+    {   if(true){
+        /* if ($_SESSION['privilege_id'] == 1) { */
             //echo $_SESSION['privilege_id'];
             $privilege = new Privilege;
             $privileges = $privilege->select('privilege');
