@@ -10,4 +10,10 @@ class Auth {
            return view::redirect('login');
         }
       }
+
+      static public function journal(){
+        $userIpAddress = $_SERVER['REMOTE_ADDR'];
+        $userName = $_SESSION['user_name'];
+
+      }
 }

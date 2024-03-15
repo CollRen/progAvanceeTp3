@@ -4,14 +4,31 @@ Priorité
 
 > 1. Fichier SQL -- Simplifier, rendre unique certains champs
 
+```php
+$fileUploaded = $_FILES;
+
+```
+
 > 2. Validator -- tout en respect de la BD -> GSheet
 
 > 3. Journal de connexion
 
 - Adresse IP
-- Date
+```php
+$userIpAddress = $_SERVER['REMOTE_ADDR'];
+```
+- Date (directement dans SQL)
 - Nom d'utilisateur (si l'utilisateur est connecté, sinon s'inscrire en tant que visiteur)
+
+```php
+$userId = $_SESSION['user_id'];
+$userName = $_SESSION['user_name'];
+```
 - Page visitée.
+
+```php
+
+```
 - Accessible à partir du menu
 
 > 4. Style simple et funky

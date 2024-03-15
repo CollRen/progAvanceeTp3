@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Providers\Auth;
+use App\Providers\Journal;
 use App\Models\Recette;
 use App\Models\Auteur;
 use App\Models\RecetteCategorie;
@@ -11,13 +12,23 @@ use App\Models\Ingredient;
 use App\Models\Recettehasingredient;
 use App\Providers\View;
 use App\Providers\Validator;
-
+use DateTime;
 
 class RecetteController
 {
+/* 
+- Adresse IP
+- Date
+- Nom d'utilisateur (si l'utilisateur est connecté, sinon s'inscrire en tant que visiteur)
+- user_id: $_SERVER[HTTP_SEC_FETCH_USER]
+- Page visitée: $_SERVER[SCRIPT_FILENAME] || REDIRECT_URL || Les deux . */
+
 
     public function index()
-    {
+
+    {   
+        Journal::record();
+
         $recette = new Recette;
         $select = $recette->select();
 
