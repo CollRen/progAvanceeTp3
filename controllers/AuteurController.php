@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Providers\JournalStore;
+
 use App\Providers\Auth;
 use App\Models\Auteur;
 use App\Providers\View;
@@ -17,13 +19,10 @@ class AuteurController
      * Voir __construct
      * Voir index
      */
-    public function __construct()
-    {
+
+     public function __construct() {
+        JournalStore::store();
         //Auth::session();
-        // Auth::session() && $_SESSION['privilege_id'] == 1;
-
-        // Le mettre ici si on veut que ça s'applique à toutes les méthodes
-
     }
 
     public function index()

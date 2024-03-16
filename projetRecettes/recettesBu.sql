@@ -144,3 +144,9 @@ page_visited VARCHAR(125),
 user_id INT,
 CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES user (id)
 );
+
+INSERT INTO `recettes`. `user` (`id`, `name`, `username`, `password`, `email`, `privilege_id`) VALUES
+(0, 'guest', 'guest@guest.com', '111111', 'guest@guest.com', 0);
+
+INSERT INTO `recettes`. `privilege` (`id`, `privilege`) VALUES
+(0, 'guest');

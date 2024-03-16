@@ -91,6 +91,10 @@ Route::get('/recettehasingredient/edit', 'RecettehasingredientController@edit');
 Route::post('/recettehasingredient/edit', 'RecettehasingredientController@update');
 Route::post('/recettehasingredient/delete', 'RecettehasingredientController@delete');
 
+
+Route::get('/journal', 'JournalController@index');
+
+
 Route::get('/login', 'AuthController@index');
 Route::post('/login', 'AuthController@store');
 Route::get('/logout', 'AuthController@delete');

@@ -2,8 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Providers\JournalStore;
+
 use App\Providers\Auth;
-use App\Providers\Journal;
 use App\Models\Recette;
 use App\Models\Auteur;
 use App\Models\RecetteCategorie;
@@ -16,6 +17,11 @@ use DateTime;
 
 class RecetteController
 {
+
+    public function __construct() {
+        JournalStore::store();
+        //Auth::session();
+    }
 /* 
 - Adresse IP
 - Date
@@ -27,7 +33,6 @@ class RecetteController
     public function index()
 
     {   
-        Journal::record();
 
         $recette = new Recette;
         $select = $recette->select();

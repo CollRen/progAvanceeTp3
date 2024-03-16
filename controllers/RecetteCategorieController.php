@@ -1,12 +1,19 @@
 <?php
 namespace App\Controllers;
 
+use App\Providers\JournalStore;
+
 use App\Models\RecetteCategorie;
 use App\Providers\View;
 use App\Providers\Validator;
 
 
 class RecetteCategorieController {
+
+    public function __construct() {
+        JournalStore::store();
+        //Auth::session();
+    }
 
     public function index(){
         $categorie = new RecetteCategorie;

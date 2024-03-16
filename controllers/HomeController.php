@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Providers\JournalStore;
+
 use App\Models\Recette;
 use App\Models\Auteur;
 use App\Models\RecetteCategorie;
@@ -11,6 +13,10 @@ use App\Providers\Validator;
 
 class HomeController
 {
+    public function __construct() {
+        JournalStore::store();
+        //Auth::session();
+    }
 
     public function index()
     {

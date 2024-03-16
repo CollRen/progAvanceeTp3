@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Providers\JournalStore;
+
 use App\Models\User;
 use App\Providers\Auth;
 use App\Models\Privilege;
@@ -10,6 +12,11 @@ use App\Providers\Validator;
 
 class UserController
 {
+
+    public function __construct() {
+        //JournalStore::store();
+        //Auth::session();
+    }
 
     public function create()
     {   if(true){

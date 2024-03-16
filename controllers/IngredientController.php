@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Providers\JournalStore;
+
 use App\Models\Ingredient;
 use App\Models\IngredientCat;  // Besoin de ça
 use App\Providers\View;
@@ -10,6 +12,11 @@ use App\Providers\Validator;
 
 class IngredientController
 {
+
+    public function __construct() {
+        JournalStore::store();
+        //Auth::session();
+    }
 
     public function index()
     {

@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Providers\JournalStore;
+
 use App\Providers\Auth;
 use App\Models\RecetteCategorie;
 use App\Models\Recette;
@@ -15,6 +17,11 @@ use App\Providers\Validator;
 
 class RecettehasingredientController
 {
+
+    public function __construct() {
+        JournalStore::store();
+        //Auth::session();
+    }
 
     public function index()
     {
