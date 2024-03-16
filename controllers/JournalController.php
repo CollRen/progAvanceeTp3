@@ -16,6 +16,7 @@ class JournalController
         $select = $journal->select();
 
         if ($select) {
+
             return View::render('journal/index', ['journals' => $select]);
         } else {
             return View::render('error');

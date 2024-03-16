@@ -1,5 +1,5 @@
-{{ include('layouts/header.php', { title: 'Recette'})}}
-<h1>Recette</h1>
+{{ include('layouts/header.php', { title: 'Journal'})}}
+<h1>Journal de connexion</h1>
 <table>
     <thead>
         <tr>
@@ -10,13 +10,13 @@
         </tr>
     </thead>
     <tbody>
-        {% if datas is defined %}
-        {% for data in datas %}
+        {% if journals is defined %}
+        {% for journal in journals %}
         <tr>
-            <td>{{ data.nom }}</td>
-            <td>{{ data.data }}</td>
-            <td>{{ data.page_visitee }}</td>
-            <td>{{ data.adresse_ip }}</td>
+            <td>{{ journal.username }}</td>
+            <td>{{ journal.date}}</td>
+            <td>{{ journal.page_visited }}</td>
+            <td>{{ journal.ip_address }}</td>
             {% endfor %}
             {% endif %}
         </tr>
