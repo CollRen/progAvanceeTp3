@@ -5,7 +5,7 @@
         <tr>
             <th>Nom utilisateur</th>
             <th>Date</th>
-            <th>Page visité</th>
+            <th>Page visitée</th>
             <th>Adresse IP</th>
         </tr>
     </thead>
