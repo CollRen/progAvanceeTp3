@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Providers\JournalStore;
 
+use App\Providers\Auth;
 use App\Models\Recette;
 use App\Models\Auteur;
 use App\Models\RecetteCategorie;
@@ -14,7 +15,9 @@ use App\Providers\Validator;
 class HomeController
 {
     public function __construct() {
-        JournalStore::store();
+                $home = new Home;
+        $arrayAuth = $home->isAuth();
+        Auth::session($arrayAuth);
         //Auth::session();
     }
 

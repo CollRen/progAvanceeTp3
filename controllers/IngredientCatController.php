@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Providers\JournalStore;
 
+use App\Providers\Auth;
 use App\Models\IngredientCat;
 use App\Providers\View;
 use App\Providers\Validator;
@@ -11,7 +12,9 @@ use App\Providers\Validator;
 class IngredientCatController {
 
     public function __construct() {
-        JournalStore::store();
+                $ingredientCat = new IngredientCat;
+        $arrayAuth = $ingredientCat->isAuth();
+        Auth::session($arrayAuth);
         //Auth::session();
     }
 

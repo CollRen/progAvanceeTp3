@@ -19,7 +19,9 @@ class RecettehasingredientController
 {
 
     public function __construct() {
-        JournalStore::store();
+        $recetteHI = new Recettehasingredient;
+        $arrayAuth = $recetteHI->isAuth();
+        Auth::session($arrayAuth);
         //Auth::session();
     }
 

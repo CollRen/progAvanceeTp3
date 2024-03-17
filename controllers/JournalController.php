@@ -10,6 +10,12 @@ use App\Providers\View;
 
 class JournalController
 {
+    public function __construct()
+    {
+        $journal = new Journal;
+        $arrayAuth = $journal->isAuth();
+        Auth::session($arrayAuth);
+    }
     public function index()
     {
         $journal = new Journal;

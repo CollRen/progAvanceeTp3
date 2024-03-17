@@ -1,6 +1,7 @@
 <?php
 namespace App\Controllers;
 
+use App\Providers\Auth;
 use App\Providers\JournalStore;
 use App\Models\Umesure;
 use App\Providers\View;
@@ -10,7 +11,9 @@ use App\Providers\Validator;
 class UmesureController {
 
     public function __construct() {
-        JournalStore::store();
+                $uMesure = new Recette;
+        $arrayAuth = $uMesure->isAuth();
+        Auth::session($arrayAuth);
     }
 
     public function index(){

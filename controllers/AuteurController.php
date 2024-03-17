@@ -21,7 +21,9 @@ class AuteurController
      */
 
      public function __construct() {
-        JournalStore::store();
+                $auteur = new Auteur;
+        $arrayAuth = $auteur->isAuth();
+        Auth::session($arrayAuth);
         //Auth::session();
     }
 

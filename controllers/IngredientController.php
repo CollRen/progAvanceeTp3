@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Providers\JournalStore;
 
+use App\Providers\Auth;
 use App\Models\Ingredient;
 use App\Models\IngredientCat;  // Besoin de ça
 use App\Providers\View;
@@ -14,7 +15,9 @@ class IngredientController
 {
 
     public function __construct() {
-        JournalStore::store();
+                $ingredient = new Ingredient;
+        $arrayAuth = $ingredient->isAuth();
+        Auth::session($arrayAuth);
         //Auth::session();
     }
 

@@ -3,6 +3,7 @@ namespace App\Controllers;
 
 use App\Providers\JournalStore;
 
+use App\Providers\Auth;
 use App\Models\RecetteCategorie;
 use App\Providers\View;
 use App\Providers\Validator;
@@ -11,8 +12,9 @@ use App\Providers\Validator;
 class RecetteCategorieController {
 
     public function __construct() {
-        JournalStore::store();
-        //Auth::session();
+        $recetteCategorie = new RecetteCategorie;
+        $arrayAuth = $recetteCategorie->isAuth();
+        Auth::session($arrayAuth);
     }
 
     public function index(){

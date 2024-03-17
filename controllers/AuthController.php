@@ -3,17 +3,13 @@ namespace App\Controllers;
 
 use App\Providers\JournalStore;
 
+use App\Providers\Auth;
 use App\Models\User;
 use App\Providers\View;
 use App\Providers\Validator;
 
 
 class AuthController {
-
-    public function __construct() {
-        JournalStore::store();
-        //Auth::session();
-    }
 
     public function index(){
         return View::render('auth/index');

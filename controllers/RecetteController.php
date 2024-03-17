@@ -25,7 +25,6 @@ class RecetteController
         $recette = new Recette;
         $arrayAuth = $recette->isAuth();
         Auth::session($arrayAuth);
-        JournalStore::store();
         //Auth::session();
     }
     /* 

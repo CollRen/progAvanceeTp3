@@ -24,6 +24,8 @@ Priorité
 
 > 7. Pousser en ligne
 
+> 8. Ça prendrait un user/index.php
+
 [Lien local](http://localhost:8000/htdSession_H23_24/php/travaux/sommatifs/tp3/recette_MVC_tp3/recette)
 
 

@@ -14,7 +14,9 @@ class UserController
 {
 
     public function __construct() {
-        //JournalStore::store();
+        $user = new User;
+        $arrayAuth = $user->isAuth();
+        Auth::session($arrayAuth);
         //Auth::session();
     }
 
