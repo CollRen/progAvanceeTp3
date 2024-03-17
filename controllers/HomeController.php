@@ -17,8 +17,8 @@ class HomeController
     public function __construct() {
                 $home = new Home;
         $arrayAuth = $home->isAuth();
-        Auth::session($arrayAuth);
-        //Auth::session();
+        Auth::verifyAcces($arrayAuth);
+        //Auth::verifyAcces();
     }
 
     public function index()

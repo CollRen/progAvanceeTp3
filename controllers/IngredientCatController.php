@@ -14,8 +14,8 @@ class IngredientCatController {
     public function __construct() {
                 $ingredientCat = new IngredientCat;
         $arrayAuth = $ingredientCat->isAuth();
-        Auth::session($arrayAuth);
-        //Auth::session();
+        Auth::verifyAcces($arrayAuth);
+        //Auth::verifyAcces();
     }
 
     public function index(){

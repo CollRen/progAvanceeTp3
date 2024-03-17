@@ -24,8 +24,9 @@ class RecetteController
     {
         $recette = new Recette;
         $arrayAuth = $recette->isAuth();
-        Auth::session($arrayAuth);
-        //Auth::session();
+        Auth::verifyAcces($arrayAuth);
+
+        //Auth::verifyAcces();
     }
     /* 
 - Adresse IP
@@ -118,7 +119,8 @@ class RecetteController
 
     public function create()
     {
-        //Auth::session();
+        $arrayCanEnter = [1, 2, 3];
+        Auth::verifyAcces($arrayCanEnter);
 
         $recetteCategorie = new RecetteCategorie;
         $recetteCategorieSelect = $recetteCategorie->select();
@@ -143,6 +145,8 @@ class RecetteController
 
     public function store($data)
     {
+        $arrayCanEnter = [1, 2, 3];
+        Auth::verifyAcces($arrayCanEnter);
 
         $validator = new Validator;
         $validator->field('titre', $data['titre'])->min(2)->max(60)->required();
@@ -188,7 +192,9 @@ class RecetteController
 
 
     public function edit($data = [])
-    {   /* print_r($data); die(); */
+    {
+        $arrayCanEnter = [1, 2, 3];
+        Auth::verifyAcces($arrayCanEnter);
 
         if (isset($data['id']) && $data['id'] != null) {
             $recette = new Recette;
@@ -213,6 +219,8 @@ class RecetteController
 
     public function update($data, $get)
     {
+        $arrayCanEnter = [1, 2, 3];
+        Auth::verifyAcces($arrayCanEnter);
 
         $validator = new Validator;
         $validator->field('titre', $data['titre'])->min(2)->max(60)->required();
@@ -245,6 +253,8 @@ class RecetteController
 
     public function delete($data)
     {
+        $arrayCanEnter = [1, 2, 3];
+        Auth::verifyAcces($arrayCanEnter);
 
         $recettehasingredient = new Recettehasingredient;
         $selectRHI = $recettehasingredient->select();
@@ -269,7 +279,7 @@ class RecetteController
     public function pdf()
     {
 
-    $pageToPrint = file_get_contents('http://localhost:8000/htdSession_H23_24/php/travaux/sommatifs/tp3/recette_MVC_tp3/recette/show?id=9&recette_categorie_id=3&auteur_id=1/');
+        $pageToPrint = file_get_contents('http://localhost:8000/htdSession_H23_24/php/travaux/sommatifs/tp3/recette_MVC_tp3/recette/show?id=9&recette_categorie_id=3&auteur_id=1/');
 
 
 

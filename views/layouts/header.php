@@ -40,7 +40,7 @@
             {% endif %}
 
             <!-- menu guest  -->
-            {% if session.privilege_id == 0 %}
+            {% if session.privilege_id == 4 %}
             <li><a href="{{base}}/recette">Liste de recette</a></li>
             {% endif %}
 

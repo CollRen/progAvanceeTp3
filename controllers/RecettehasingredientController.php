@@ -21,8 +21,8 @@ class RecettehasingredientController
     public function __construct() {
         $recetteHI = new Recettehasingredient;
         $arrayAuth = $recetteHI->isAuth();
-        Auth::session($arrayAuth);
-        //Auth::session();
+        Auth::verifyAcces($arrayAuth);
+        //Auth::verifyAcces();
     }
 
     public function index()

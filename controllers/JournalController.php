@@ -14,7 +14,7 @@ class JournalController
     {
         $journal = new Journal;
         $arrayAuth = $journal->isAuth();
-        Auth::session($arrayAuth);
+        Auth::verifyAcces($arrayAuth);
     }
     public function index()
     {

@@ -16,8 +16,8 @@ class UserController
     public function __construct() {
         $user = new User;
         $arrayAuth = $user->isAuth();
-        Auth::session($arrayAuth);
-        //Auth::session();
+        Auth::verifyAcces($arrayAuth);
+        //Auth::verifyAcces();
     }
 
     public function create()

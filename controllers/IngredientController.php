@@ -17,8 +17,8 @@ class IngredientController
     public function __construct() {
                 $ingredient = new Ingredient;
         $arrayAuth = $ingredient->isAuth();
-        Auth::session($arrayAuth);
-        //Auth::session();
+        Auth::verifyAcces($arrayAuth);
+        //Auth::verifyAcces();
     }
 
     public function index()
@@ -88,7 +88,8 @@ class IngredientController
     }
 
     public function edit($data = [])
-    {
+    {   $arrayCanEnter = [1,2];
+        Auth::verifyAcces($arrayCanEnter);
         if (isset($data['id']) && $data['id'] != null) {
             $ingredient = new Ingredient;
             $selectId = $ingredient->selectId($data['id']);

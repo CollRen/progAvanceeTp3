@@ -35,11 +35,10 @@
     </tbody>
 </table>
 
-<!-- Pour filtrer l'affichage au log in log out
-    {% if guest is empty %} -->
 
+{% if session.privilege_id <= 3 %}
 <a href="{{ base }}/recette/create" class="btn">Recette Create</a>
 
-<!-- {% endif %} -->
+{% endif %}
 
 {{ include('layouts/footer.php') }}

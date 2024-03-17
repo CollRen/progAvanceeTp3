@@ -14,7 +14,7 @@ class RecetteCategorieController {
     public function __construct() {
         $recetteCategorie = new RecetteCategorie;
         $arrayAuth = $recetteCategorie->isAuth();
-        Auth::session($arrayAuth);
+        Auth::verifyAcces($arrayAuth);
     }
 
     public function index(){

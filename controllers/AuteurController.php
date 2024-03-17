@@ -20,11 +20,12 @@ class AuteurController
      * Voir index
      */
 
-     public function __construct() {
-                $auteur = new Auteur;
+    public function __construct()
+    {
+        $auteur = new Auteur;
         $arrayAuth = $auteur->isAuth();
-        Auth::session($arrayAuth);
-        //Auth::session();
+        Auth::verifyAcces($arrayAuth);
+        //Auth::verifyAcces();
     }
 
     public function index()

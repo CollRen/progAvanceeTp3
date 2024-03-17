@@ -13,7 +13,7 @@ class UmesureController {
     public function __construct() {
                 $uMesure = new Recette;
         $arrayAuth = $uMesure->isAuth();
-        Auth::session($arrayAuth);
+        Auth::verifyAcces($arrayAuth);
     }
 
     public function index(){
