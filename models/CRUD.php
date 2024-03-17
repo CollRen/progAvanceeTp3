@@ -10,6 +10,10 @@ abstract class CRUD extends \PDO
         parent::__construct('mysql:host=localhost;dbname=recettes;port=3306;charset=utf8', 'root', 'root');
     }
 
+    final public function isAuth() {
+        return $this->isAuth;
+    }
+
     final public function select($field = null, $order = 'asc')
     {
         if ($field == null) {

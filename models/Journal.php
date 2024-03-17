@@ -13,6 +13,7 @@ use App\Providers\Validator;
 class Journal extends CRUD{
     protected $table = 'journal';
     protected $primaryKey = 'id';
+    protected $isAuth = [1];
     protected $fillable = ['ip_address', 'username', 'page_visited', 'user_id'];
 
     //- Page visitée: $_SERVER[SCRIPT_FILENAME] || REDIRECT_URL || Les deux . */

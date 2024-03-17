@@ -7,7 +7,8 @@ use App\Models\CRUD;
 class Recettehasingredient extends CRUD
 {
     protected $table = 'recette_has_ingredient';
-    protected $primaryKey = 'id'; // Ici juste 1 pour la ligne 14 du CRUD mais faudra 2
+    protected $primaryKey = 'id';
+    protected $isAuth = [1, 2, 3]; // Ici juste 1 pour la ligne 14 du CRUD mais faudra 2
     protected $fillable = ['recette_id', 'ingredient_id', 'quantite', 'unite_mesure_id'];
 
 

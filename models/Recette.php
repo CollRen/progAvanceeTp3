@@ -5,6 +5,7 @@ use App\Models\CRUD;
 class Recette extends CRUD{
     protected $table = 'recette';
     protected $primaryKey = 'id';
+    protected $isAuth = [1, 2, 3, 4];
     protected $fillable = ['titre', 'description', 'temps_preparation', 'temps_cuisson', 'recette_categorie_id', 'auteur_id'];
 
 
@@ -27,5 +28,4 @@ class Recette extends CRUD{
             return false;
         }
     }
-
 }

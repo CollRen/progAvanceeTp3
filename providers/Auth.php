@@ -3,8 +3,9 @@ namespace App\Providers;
 use App\Providers\View;
 
 class Auth {
-    static public function session(){
-        if(isset($_SESSION['fingerPrint']) and $_SESSION['fingerPrint']==md5($_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR'])){
+    static public function session($arrayCanVisit){
+
+        if(isset($_SESSION['fingerPrint']) and $_SESSION['fingerPrint']==md5($_SERVER['HTTP_USER_AGENT'] . $_SERVER['REMOTE_ADDR']) && in_array($_SESSION['privilege_id'], $arrayCanVisit)){
             return TRUE;
         } else{
            return view::redirect('login');
@@ -14,6 +15,5 @@ class Auth {
       static public function journal(){
         $userIpAddress = $_SERVER['REMOTE_ADDR'];
         $userName = $_SESSION['user_name'];
-
       }
 }
