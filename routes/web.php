@@ -16,6 +16,7 @@ Route::get('/recette/show', 'RecetteController@show');
 Route::get('/recette/create', 'RecetteController@create');
 Route::post('/recette/create', 'RecetteController@store');
 
+Route::get('/recette/pdf', 'RecetteController@pdf');
 Route::get('/recette/edit', 'RecetteController@edit');
 Route::post('/recette/edit', 'RecetteController@update');
 Route::post('/recette/delete', 'RecetteController@delete');

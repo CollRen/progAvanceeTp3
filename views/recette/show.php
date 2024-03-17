@@ -4,6 +4,7 @@
     <div class="recette__durees">
         <p><strong>Temps de préparation:</strong> {{ recette.temps_preparation }}</p>
         <p><strong>Temps de cuisson:</strong> {{ recette.temps_cuisson }}</p>
+        <a href="{{ base }}/recette/pdf">Imprimer en pdf</a>
     </div>
     <div class="recette__description">
         <p>{{ recette.description }}</p>

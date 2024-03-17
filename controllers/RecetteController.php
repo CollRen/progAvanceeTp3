@@ -14,15 +14,18 @@ use App\Models\Recettehasingredient;
 use App\Providers\View;
 use App\Providers\Validator;
 use DateTime;
+use Dompdf\Dompdf;
+
 
 class RecetteController
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         JournalStore::store();
         //Auth::session();
     }
-/* 
+    /* 
 - Adresse IP
 - Date
 - Nom d'utilisateur (si l'utilisateur est connecté, sinon s'inscrire en tant que visiteur)
@@ -32,7 +35,7 @@ class RecetteController
 
     public function index()
 
-    {   
+    {
 
         $recette = new Recette;
         $select = $recette->select();
@@ -72,21 +75,22 @@ class RecetteController
 
             $recettehasingredient = new Recettehasingredient;
             $selectRHI = $recettehasingredient->selectId($data['id'], 'recette_id');
-            
-            
-            
+
+
+
             $recetteHis[] = '';
             $i = 0;
 
-            if(is_array($selectRHI[0])) {
-            foreach($selectRHI as $row) {
+            if (is_array($selectRHI[0])) {
+                foreach ($selectRHI as $row) {
 
-                $nomIngredients[$i] = $ingredient->selectId($row['ingredient_id']);
-                $nomUmesure[$i] = $umesure->selectId($row['unite_mesure_id']);
-                $nomIngredients[$i] = $ingredient->selectId($row['ingredient_id']);
-                $recetteHis[$i] = ['quantite' => $row['quantite'], 'id' => $row['id'], 'recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'ingredient_id' => $row['ingredient_id'], 'unite_mesure_nom' => $nomUmesure[$i]['nom'], 'ingredient_nom' => $nomIngredients[$i]['nom']];
-                $i++;
-            };} else {
+                    $nomIngredients[$i] = $ingredient->selectId($row['ingredient_id']);
+                    $nomUmesure[$i] = $umesure->selectId($row['unite_mesure_id']);
+                    $nomIngredients[$i] = $ingredient->selectId($row['ingredient_id']);
+                    $recetteHis[$i] = ['quantite' => $row['quantite'], 'id' => $row['id'], 'recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'ingredient_id' => $row['ingredient_id'], 'unite_mesure_nom' => $nomUmesure[$i]['nom'], 'ingredient_nom' => $nomIngredients[$i]['nom']];
+                    $i++;
+                };
+            } else {
                 // print_r($selectRHI); die();
                 $row = $selectRHI;
                 $nomIngredients = $ingredient->selectId($row['ingredient_id']);
@@ -99,9 +103,8 @@ class RecetteController
 
             if ($selectId && is_array($selectRHI[0])) {
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredients' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
-            } elseif ($selectId){
+            } elseif ($selectId) {
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredient' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
-
             } else {
                 return View::render('error');
             }
@@ -259,5 +262,27 @@ class RecetteController
         } else {
             return View::render('error');
         }
+    }
+
+    public function pdf()
+    {
+
+    $pageToPrint = file_get_contents('http://localhost:8000/htdSession_H23_24/php/travaux/sommatifs/tp3/recette_MVC_tp3/recette/show?id=9&recette_categorie_id=3&auteur_id=1/');
+
+
+
+        // instantiate and use the dompdf class
+        $dompdf = new Dompdf();
+        $dompdf->loadHtml($pageToPrint);
+
+        // (Optional) Setup the paper size and orientation
+        $dompdf->setPaper('A4', 'landscape');
+
+        // Render the HTML as PDF
+        $dompdf->render();
+
+        // Output the generated PDF to Browser
+        $dompdf->stream();
+        //return View::redirect('recette/pdf');
     }
 }
