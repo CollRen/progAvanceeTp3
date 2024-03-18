@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Providers\JournalStore;
-
 use App\Models\Journal;
 use App\Providers\Auth;
 use App\Providers\View;
@@ -15,6 +14,7 @@ class JournalController
         $journal = new Journal;
         $arrayAuth = $journal->isAuth();
         Auth::verifyAcces($arrayAuth);
+        JournalStore::store();;
     }
     public function index()
     {

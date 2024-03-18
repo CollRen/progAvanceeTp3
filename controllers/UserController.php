@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Providers\JournalStore;
-
 use App\Models\User;
 use App\Providers\Auth;
 use App\Models\Privilege;
@@ -18,6 +17,7 @@ class UserController
         $user = new User;
         $arrayAuth = $user->isAuth();
         Auth::verifyAcces($arrayAuth);
+        JournalStore::store();;
     }
 
     public function create()
@@ -46,7 +46,6 @@ class UserController
             $user = new User;
 
             $data['password'] = $user->hashPassword($data['password']);
-            //$data['email'] = $data['username'];
             $insert = $user->insert($data);
             if ($insert) {
                 return View::redirect('login');

@@ -15,6 +15,10 @@ use App\Providers\Validator;
 class HomeController
 {
 
+    public function __construct()
+    {
+        JournalStore::store();
+    }
     public function index()
     {
         $recette = new Recette;

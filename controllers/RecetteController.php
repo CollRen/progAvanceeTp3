@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Providers\JournalStore;
-
 use App\Providers\Auth;
 use App\Models\Recette;
 use App\Models\Auteur;
@@ -25,6 +24,7 @@ class RecetteController
         $recette = new Recette;
         $arrayAuth = $recette->isAuth();
         Auth::verifyAcces($arrayAuth);
+        JournalStore::store();;
     }
 
     public function index()

@@ -17,6 +17,7 @@ class UmesureController
         $uMesure = new Umesure;
         $arrayAuth = $uMesure->isAuth();
         Auth::verifyAcces($arrayAuth);
+        JournalStore::store();;
     }
 
     public function index()

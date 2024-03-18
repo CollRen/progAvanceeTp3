@@ -18,6 +18,7 @@ class AuteurController
         $auteur = new Auteur;
         $arrayAuth = $auteur->isAuth();
         Auth::verifyAcces($arrayAuth);
+        JournalStore::store();;
     }
 
     public function index()

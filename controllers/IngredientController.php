@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Providers\JournalStore;
-
 use App\Providers\Auth;
 use App\Models\Ingredient;
 use App\Models\IngredientCat;  // Besoin de ça
@@ -18,6 +17,7 @@ class IngredientController
                 $ingredient = new Ingredient;
         $arrayAuth = $ingredient->isAuth();
         Auth::verifyAcces($arrayAuth);
+        JournalStore::store();;
         
     }
 

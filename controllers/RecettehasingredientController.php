@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Providers\JournalStore;
-
 use App\Providers\Auth;
 use App\Models\RecetteCategorie;
 use App\Models\Recette;
@@ -23,6 +22,7 @@ class RecettehasingredientController
         $recetteHI = new Recettehasingredient;
         $arrayAuth = $recetteHI->isAuth();
         Auth::verifyAcces($arrayAuth);
+        JournalStore::store();;
     }
 
     public function index()
