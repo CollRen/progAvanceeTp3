@@ -84,7 +84,9 @@ class RecetteController
             $recetteHis[] = '';
             $i = 0;
 
-            if (is_array($selectRHI[0])) {
+            if(is_array($selectRHI)&& isset($selectRHI['id'])){
+
+                 if ($selectRHI[0] != $selectRHI['id']) {
                 foreach ($selectRHI as $row) {
 
                     $nomIngredients[$i] = $ingredient->selectId($row['ingredient_id']);
@@ -94,17 +96,19 @@ class RecetteController
                     $i++;
                 };
             } else {
-                // print_r($selectRHI); die();
-                $row = $selectRHI;
-                $nomIngredients = $ingredient->selectId($row['ingredient_id']);
-                $nomUmesure = $umesure->selectId($row['unite_mesure_id']);
-                $nomIngredients = $ingredient->selectId($row['ingredient_id']);
-                $recetteHis = ['quantite' => $row['quantite'], 'id' => $row['id'], 'recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'ingredient_id' => $row['ingredient_id'], 'unite_mesure_nom' => $nomUmesure['nom'], 'ingredient_nom' => $nomIngredients['nom']];
+                $bool = isset($selectRHI['ingredient_id']);
+
+                $nomIngredients = $ingredient->selectId($selectRHI['ingredient_id']);
+                $nomUmesure = $umesure->selectId($selectRHI['unite_mesure_id']);
+                $nomIngredients = $ingredient->selectId($selectRHI['ingredient_id']);
+                $recetteHis = ['quantite' => $selectRHI['quantite'], 'id' => $selectRHI['id'], 'recette_id' => $selectRHI['recette_id'], 'unite_mesure_id' => $selectRHI['unite_mesure_id'], 'ingredient_id' => $selectRHI['ingredient_id'], 'unite_mesure_nom' => $nomUmesure['nom'], 'ingredient_nom' => $nomIngredients['nom']];
             }
+            }
+           
 
 
 
-            if ($selectId && is_array($selectRHI[0])) {
+            if ($selectId && (is_array($selectRHI[0]) || is_array($selectRHI))) {
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredients' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
             } elseif ($selectId) {
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredient' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);

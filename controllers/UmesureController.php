@@ -11,7 +11,7 @@ use App\Providers\Validator;
 class UmesureController {
 
     public function __construct() {
-                $uMesure = new Recette;
+        $uMesure = new Umesure;
         $arrayAuth = $uMesure->isAuth();
         Auth::verifyAcces($arrayAuth);
     }

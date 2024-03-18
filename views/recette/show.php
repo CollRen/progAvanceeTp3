@@ -12,7 +12,7 @@
 
     <div class="liste_ingredient--container">
 
-        
+
         {% if recettehasingredients is defined %}
 
         {% for recettehasingredient in recettehasingredients %}
@@ -43,17 +43,17 @@
 
 
 
-<ul class="liste_ingredient">
+        <ul class="liste_ingredient">
 
-    <div class="btn-delete_rhi">
+            <div class="btn-delete_rhi">
 
-        <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}&id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></a></li>
-        <!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">
+                <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}&id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></a></li>
+                <!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">
                                     <input type="hidden" name="recette_id" value="{{ recette.id }}">
                                     <button class="btn block red">Delete</button>
                                 </form> -->
-    </div>
-</ul>
+            </div>
+        </ul>
 
 
 
@@ -62,7 +62,7 @@
 
 
 
-{% endif %}
+        {% endif %}
 
 
 
@@ -73,6 +73,8 @@
     <p><strong>Auteur:</strong> {{ auteur.nom }}</p>
     <p><strong>Catégorie:</strong> {{ recetteCat.nom }}</p>
 </div>
+
+{% if session.privilege_id <= 3 %}
 <div class="recette_btn">
     <a href="{{base}}/recette/edit?id={{recette.id}}" class="btn block">Edit</a>
     <form action="{{base}}/recette/delete" method="post">
@@ -80,5 +82,6 @@
         <button class="btn block red">Delete</button>
     </form>
 </div>
+{% endif %}
 
 {{ include('layouts/footer.php') }}
