@@ -148,75 +148,23 @@ class RecettehasingredientController
     public function update($data, $get)
     {
         $data['recette_id'] = $get['recette_id'];
-        //print_r($data); die();
-        // Array ( [quantite] => 1.25 [unite_mesure_id] => 3 [ingredient_id] => 1 [recette_id] => )
-        
-        // print_r($get); die();
-        // Array ( [recette_id] => 10 [ingredient_id] => 1 [id] => 25 )
-
-        // print_r($data); die();
-        // Array ( [quantite] => 0.5 [unite_mesure_id] => 8 [ingredient_id] => 1 [recette_id] => [id] => 25 )
 
         $validator = new Validator;
         $validator->fieldkeys('ingredient_id', $data['ingredient_id'], 'recette_id', $get['recette_id'])->uniquekeys('Recettehasingredient');
+
+
         
-        //print_r($validator); die();
-        // App\Providers\Validator Object ( [errors:App\Providers\Validator:private] => Array ( ) [key:App\Providers\Validator:private] => [value:App\Providers\Validator:private] => [key1:App\Providers\Validator:private] => ingredient_id [value1:App\Providers\Validator:private] => 1 [key2:App\Providers\Validator:private] => recette_id [value2:App\Providers\Validator:private] => 10 [name:App\Providers\Validator:private] => Ingredient_id )
-
         if ($validator->isSuccess()) {
-            // echo '$validator succeded'; die();
-            // $validator succeded
-            // Suis rendu là ( le rtr de fetch vaut 0)
-
+ 
             $recettehasingredient = new Recettehasingredient;
-            //print_r($get); die();
             $update = $recettehasingredient->update($data, $get['id']);
-            //print_r($update); die();
-            // rien
 
             $recette = new Recette;
             $selectId = $recette->selectId($get['recette_id']);
 
             if ($update) {
                 return View::redirect('recette/show?id=' . $get['recette_id'] . '&recette_categorie_id=' . $selectId['recette_categorie_id'] . '&auteur_id=' . $selectId['auteur_id']);
-
-
-                $recetteCat = new RecetteCategorie;
-                $selectCatId = $recetteCat->selectId($selectId['recette_categorie_id']);
-/*                 echo '<br>RecetteCat:<br>';
-                print_r($selectCatId);
-                echo '<br>'; die(); */
-                $auteur = new Auteur;
-                $selectAuteurId = $auteur->selectId($selectId['auteur_id']);
-
-                $umesure = new Umesure;
-                $selectUmesure = $umesure->select();
-/*                 echo '<br>Umesure:<br>';
-                print_r($selectUmesure);
-                echo '<br>'; die(); */
-
-                $ingredient = new Ingredient;
-                $selectIngredients = $ingredient->select();
-
-                $recettehasingredient = new Recettehasingredient;
-                $selectRHI = $recettehasingredient->selectId($get['id']);
-                echo '<br>RHI:<br>';
-                print_r($selectRHI);
-                echo '<br>'; 
-
-
-/*                     $recetteHis[] = ['recette_id' => $selectRHI['recette_id'], 'unite_mesure_id' => $selectRHI['unite_mesure_id'], 'unite_mesure_nom' => $unite['nom'], 'ingredient_nom' => $ingredients['nom'], 'quantite' => $selectRHI['quantite'], 'ingredient_id' => $selectRHI['ingredient_id']]; */
-
-$nomIngredients = $ingredient->selectId($selectRHI['ingredient_id']);
-$nomUmesure = $umesure->selectId($selectRHI['unite_mesure_id']);
-$nomIngredients = $ingredient->selectId($selectRHI['ingredient_id']);
-$recetteHis = ['quantite' => $selectRHI['quantite'], 'id' => $selectRHI['id'], 'recette_id' => $selectRHI['recette_id'], 'unite_mesure_id' => $selectRHI['unite_mesure_id'], 'ingredient_id' => $selectRHI['ingredient_id'], 'unite_mesure_nom' => $nomUmesure['nom'], 'ingredient_nom' => $nomIngredients['nom']];
-return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredient' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
-
-
-                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
             } else {
-                echo 'Not Updated'; die();
                 return View::render('error');
             }
         } else {

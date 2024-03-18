@@ -52,6 +52,7 @@ class RecetteCategorieController {
         $validator = new Validator;
         $validator->field('nom', $data['nom'], 'Le nom')->min(2)->max(45);
 
+
         if($validator->isSuccess()){
             $categorie = new RecetteCategorie;
             $insert = $categorie->insert($data);        
@@ -68,9 +69,11 @@ class RecetteCategorieController {
     }
 
     public function edit($data = []){
+        // print_r($data); die();
         if(isset($data['id']) && $data['id']!=null){
             $categorie = new RecetteCategorie;
             $selectId = $categorie->selectId($data['id']);
+
             if($selectId){
                 return View::render('categorie/edit', ['categorie' => $selectId]);
             }else{
@@ -81,12 +84,24 @@ class RecetteCategorieController {
         }
     }
     public function update($data, $get){
-        // $get['id'];
+        $categorie = new RecetteCategorie;
+        $selectId = $categorie->selectId($get['id']);
+
+/*         echo '$data:<br>';
+        print_r($data);
+        echo '$get:<br>';
+        print_r($selectId);
+        die(); */ // $data c'est newValue et $selectId oldValue
+
+        if($selectId){
+        $oldValue = $selectId['nom'];
         $validator = new Validator;
-        $validator->field('nom', $data['nom'], 'Le nom')->min(2)->max(45);
+        $validator->field('nom', $data['nom'])->min(2)->max(45)->changeCheck($oldValue);
+
 
 
         if($validator->isSuccess()){
+                // Importer RecetteCategorie pour validator s'il y a un changement ou pas dans la bd-> faudra ajouter un bouton pour revenir à la recette
                 $categorie = new RecetteCategorie;
                 $update = $categorie->update($data, $get['id']);
 
@@ -100,7 +115,7 @@ class RecetteCategorieController {
             
             return View::render('categorie/edit', ['errors'=>$errors, 'categorie' => $data]);
         }
-    }
+    }}
 
     public function delete($data){
         $categorie = new RecetteCategorie;

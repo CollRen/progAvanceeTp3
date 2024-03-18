@@ -40,12 +40,7 @@
             {% endif %}
 
             <!-- menu guest  -->
-            {% if session.privilege_id == 4 %}
-            <li><a href="{{base}}/recette">Liste de recette</a></li>
-            {% endif %}
-
-
-            {% if guest %}
+            {% if guest or session.privilege_id == 4 %}
             <li><a href="{{base}}/recette">Liste de recette</a></li>
             <li class="connexion connexion__not-connected"><a href="{{base}}/login">Login</a></li>
             {% else %}

@@ -31,6 +31,7 @@ class Validator
         $this->key2 = $key2;
         $this->value1 = $value1;
         $this->value2 = $value2;
+
         if ($name == null) {
             $this->name = ucfirst($key1);
         } else {
@@ -39,6 +40,15 @@ class Validator
         return $this;
     }
     ////////////// VALIDATION RULES  ////////////////////////////
+    public function changeCheck($oldValue)
+    {
+        if ($this->value == $oldValue) {
+            $this->errors[$this->key] = "Vous n'avez pas apporté de modification à $this->name";
+        }
+        //print_r($this); die();
+        return $this;
+    }
+
     public function required()
     {
         if (empty($this->value)) {

@@ -17,10 +17,10 @@
 
         {% for recettehasingredient in recettehasingredients %}
 
+        {% if session.privilege_id <= 3 %}
         <ul class="liste_ingredient">
 
             <div class="btn-delete_rhi">
-
                 <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}&id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></a></li>
                 <!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">
                                             <input type="hidden" name="recette_id" value="{{ recette.id }}">
@@ -28,7 +28,19 @@
                                         </form> -->
             </div>
         </ul>
+        {% else %}
+        <ul class="liste_ingredient">
 
+            <div class="btn-delete_rhi">
+                <li><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></li>
+
+                <!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">
+                                <input type="hidden" name="recette_id" value="{{ recette.id }}">
+                                <button class="btn block red">Delete</button>
+                            </form> -->
+            </div>
+        </ul>
+        {% endif %}
 
 
 
@@ -46,6 +58,7 @@
         <ul class="liste_ingredient">
 
             <div class="btn-delete_rhi">
+
 
                 <li><a href="{{ base }}/recettehasingredient/edit?recette_id={{recettehasingredient.recette_id}}&ingredient_id={{ recettehasingredient.ingredient_id }}&id={{ recettehasingredient.id }}"><span class="liste_ingredient__qte"></span>{{ recettehasingredient.quantite }}&nbsp;<span class="liste_ingredient__umesure"></span>{{ recettehasingredient.unite_mesure_nom }}&nbsp;<span class="liste_ingredient__ingredient">{{ recettehasingredient.ingredient_nom }}&nbsp;</span></a></li>
                 <!--                                  <form action="{{base}}/recettehasingredient/delete" method="post">

@@ -5,8 +5,8 @@
         <label>Nom
                 <input type="text" name="nom" value="{{ categorie.nom }}">
             </label>
-            {% if errors.name is defined %}
-                <span class="error">{{ errors.name }}</span>
+            {% if errors.nom is defined %}
+                <span class="error">{{ errors.nom }}</span>
             {% endif %}
            
            
