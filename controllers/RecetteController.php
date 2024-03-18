@@ -80,8 +80,8 @@ class RecetteController
                 $nomIngredients = $ingredient->selectId($selectRHI['ingredient_id']);
                 $recetteHis = ['quantite' => $selectRHI['quantite'], 'id' => $selectRHI['id'], 'recette_id' => $selectRHI['recette_id'], 'unite_mesure_id' => $selectRHI['unite_mesure_id'], 'ingredient_id' => $selectRHI['ingredient_id'], 'unite_mesure_nom' => $nomUmesure['nom'], 'ingredient_nom' => $nomIngredients['nom']];
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredient' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
-                
-            // Préparer l'affichage Recette à 2 ingrédients
+
+                // Préparer l'affichage Recette à 2 ingrédients
             } elseif (isset($selectRHI[0][0])) {
                 foreach ($selectRHI as $row) {
 
@@ -92,12 +92,14 @@ class RecetteController
                     $i++;
                 };
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredients' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
-           
+
                 // Préparer l'affichage d'une Recette qui n'a pas ingrédient
             } else {
 
-            return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId]);
-        }}}
+                return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId]);
+            }
+        }
+    }
 
 
 
@@ -263,7 +265,7 @@ class RecetteController
     public function pdf()
     {
 
-        $pageToPrint = file_get_contents('http://localhost:8000/htdSession_H23_24/php/travaux/sommatifs/tp3/recette_MVC_tp3/recette/show?id=9&recette_categorie_id=3&auteur_id=1/');
+        $pageToPrint = file_get_contents($_SERVER['HTTP_REFERER']);
 
 
 
