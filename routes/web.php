@@ -90,6 +90,7 @@ Route::post('/recettehasingredient/create', 'RecettehasingredientController@stor
 
 Route::get('/recettehasingredient/edit', 'RecettehasingredientController@edit');
 Route::post('/recettehasingredient/edit', 'RecettehasingredientController@update');
+Route::post('/recettehasingredient/update', 'RecetteController@show');
 Route::post('/recettehasingredient/delete', 'RecettehasingredientController@delete');
 
 

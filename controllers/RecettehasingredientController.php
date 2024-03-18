@@ -174,10 +174,12 @@ class RecettehasingredientController
             //print_r($update); die();
             // rien
 
-            if ($update) {
+            $recette = new Recette;
+            $selectId = $recette->selectId($get['recette_id']);
 
-                $recette = new Recette;
-                $selectId = $recette->selectId($get['recette_id']);
+            if ($update) {
+                return View::redirect('recette/show?id=' . $get['recette_id'] . '&recette_categorie_id=' . $selectId['recette_categorie_id'] . '&auteur_id=' . $selectId['auteur_id']);
+
 
                 $recetteCat = new RecetteCategorie;
                 $selectCatId = $recetteCat->selectId($selectId['recette_categorie_id']);
@@ -185,7 +187,7 @@ class RecettehasingredientController
                 print_r($selectCatId);
                 echo '<br>'; die(); */
                 $auteur = new Auteur;
-                $selectAuteur = $auteur->selectId($selectId['auteur_id']);
+                $selectAuteurId = $auteur->selectId($selectId['auteur_id']);
 
                 $umesure = new Umesure;
                 $selectUmesure = $umesure->select();
@@ -194,7 +196,7 @@ class RecettehasingredientController
                 echo '<br>'; die(); */
 
                 $ingredient = new Ingredient;
-                $selectIngredient = $ingredient->select();
+                $selectIngredients = $ingredient->select();
 
                 $recettehasingredient = new Recettehasingredient;
                 $selectRHI = $recettehasingredient->selectId($get['id']);
@@ -203,13 +205,13 @@ class RecettehasingredientController
                 echo '<br>'; 
 
 
-                    $unite = $umesure->selectId($selectRHI['unite_mesure_id']);
-                    $ingredients = $ingredient->selectId($selectRHI['ingredient_id']);
-                    $ingredientId = $selectRHI['ingredient_id'];
+/*                     $recetteHis[] = ['recette_id' => $selectRHI['recette_id'], 'unite_mesure_id' => $selectRHI['unite_mesure_id'], 'unite_mesure_nom' => $unite['nom'], 'ingredient_nom' => $ingredients['nom'], 'quantite' => $selectRHI['quantite'], 'ingredient_id' => $selectRHI['ingredient_id']]; */
 
-
-                    $recetteHis[] = ['recette_id' => $selectRHI['recette_id'], 'unite_mesure_id' => $selectRHI['unite_mesure_id'], 'unite_mesure_nom' => $unite['nom'], 'ingredient_nom' => $ingredients['nom'], 'quantite' => $selectRHI['quantite'], 'ingredient_id' => $selectRHI['ingredient_id']];
-
+$nomIngredients = $ingredient->selectId($selectRHI['ingredient_id']);
+$nomUmesure = $umesure->selectId($selectRHI['unite_mesure_id']);
+$nomIngredients = $ingredient->selectId($selectRHI['ingredient_id']);
+$recetteHis = ['quantite' => $selectRHI['quantite'], 'id' => $selectRHI['id'], 'recette_id' => $selectRHI['recette_id'], 'unite_mesure_id' => $selectRHI['unite_mesure_id'], 'ingredient_id' => $selectRHI['ingredient_id'], 'unite_mesure_nom' => $nomUmesure['nom'], 'ingredient_nom' => $nomIngredients['nom']];
+return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteurId, 'recettehasingredient' => $recetteHis, 'ingredients' => $selectIngredients, 'umesures' => $selectUmesure]);
 
 
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
