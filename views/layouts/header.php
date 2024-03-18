@@ -43,6 +43,7 @@
             {% if guest or session.privilege_id == 4 %}
             <li><a href="{{base}}/recette">Liste de recette</a></li>
             <li class="connexion connexion__not-connected"><a href="{{base}}/login">Login</a></li>
+            <li><a href="{{base}}/journal">Journal de connexion</a></li>
             {% else %}
             <li class="connexion connexion__connected"><a href="{{base}}/logout">Logout</a></li>
             {% endif %}

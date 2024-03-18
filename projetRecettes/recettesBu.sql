@@ -48,7 +48,7 @@ CONSTRAINT fk_ingredient_id FOREIGN KEY (ingredient_id) REFERENCES ingredient (i
 CONSTRAINT fk_unite_mesure_id FOREIGN KEY (unite_mesure_id) REFERENCES unite_mesure (id)
 );
 
-INSERT INTO `wuatrpaz_recette`.`ingredient_categorie`
+INSERT INTO `recettes`.`ingredient_categorie`
 (`nom`)
 VALUES ('Les épices'),
 ('Fromage'),
@@ -58,7 +58,7 @@ VALUES ('Les épices'),
 ('Légume');
 
 
-INSERT INTO `wuatrpaz_recette`.`ingredient`
+INSERT INTO `recettes`.`ingredient`
 (
 `nom`,
 `ingredient_categorie_id`)
@@ -66,11 +66,11 @@ VALUES (
 'Sel de célerie',
 1);
 
-INSERT INTO `wuatrpaz_recette`.`recette_categorie` (`id`, `nom`) VALUES 
+INSERT INTO `recettes`.`recette_categorie` (`id`, `nom`) VALUES 
 (NULL, 'Dessert'),
 (NULL, 'Plats principaux');
 
-INSERT INTO `wuatrpaz_recette`.`auteur` (`nom`, `prenom`) VALUES 
+INSERT INTO `recettes`.`auteur` (`nom`, `prenom`) VALUES 
 ('de Montigny', 'René'),
 ('Dallair', 'Ismael'),
 ('Young', 'Robert'),
@@ -78,7 +78,7 @@ INSERT INTO `wuatrpaz_recette`.`auteur` (`nom`, `prenom`) VALUES
 ('Larrivée', 'Ricardo'),
 ('Dubé', 'Nancy');
 
-INSERT INTO `wuatrpaz_recette`.`recette` (`id`, `titre`, `description`, `temps_preparation`, `temps_cuisson`, `recette_categorie_id`, `auteur_id`) VALUES 
+INSERT INTO `recettes`.`recette` (`id`, `titre`, `description`, `temps_preparation`, `temps_cuisson`, `recette_categorie_id`, `auteur_id`) VALUES 
 (NULL, 'Dessert cool','Ceci décrivant celà', 11, 11, 1, 1),
 (NULL, 'Ceci décrivant celà', 'Dessert cool', 10, 10, 1, 1);
 
@@ -93,7 +93,7 @@ INSERT INTO `unite_mesure` (`id`, `nom`) VALUES
 (8, 'oz'),
 (9, 'Cup');
 
-INSERT INTO `wuatrpaz_recette`.`recette_has_ingredient`
+INSERT INTO `recettes`.`recette_has_ingredient`
 (`recette_id`,
 `ingredient_id`,
 `quantite`,
@@ -104,7 +104,7 @@ VALUES
 2,
 1);
 
-INSERT INTO `wuatrpaz_recette`.`recette_has_ingredient`
+INSERT INTO `recettes`.`recette_has_ingredient`
 (`recette_id`,
 `ingredient_id`,
 `quantite`,
@@ -114,7 +114,7 @@ VALUES
 
 
 
-CREATE TABLE wuatrpaz_recette.user (
+CREATE TABLE recettes.user (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `name` VARCHAR(50) NOT NULL,
   `username` VARCHAR(50) NOT NULL,
@@ -124,18 +124,18 @@ CREATE TABLE wuatrpaz_recette.user (
   `create_at` TIMESTAMP
 );
 
-CREATE TABLE wuatrpaz_recette.privilege (
+CREATE TABLE recettes.privilege (
   `id` INT AUTO_INCREMENT PRIMARY KEY,
   `privilege` VARCHAR(50) NOT NULL
 );
 
-INSERT INTO wuatrpaz_recette.privilege (`privilege`) VALUES
+INSERT INTO recettes.privilege (`privilege`) VALUES
 ('Admin'),
 ('Manager'),
 ('Auteur');
 
 
-CREATE TABLE wuatrpaz_recette.journal(
+CREATE TABLE recettes.journal(
 id INT AUTO_INCREMENT PRIMARY KEY,
 ip_address VARCHAR(45),
 date TIMESTAMP(6),
@@ -145,7 +145,7 @@ user_id INT,
 CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
-INSERT INTO `wuatrpaz_recette` .`user` (`id`, `name`, `username`, `password`, `email`, `privilege_id`) VALUES
+INSERT INTO `recettes` .`user` (`id`, `name`, `username`, `password`, `email`, `privilege_id`) VALUES
 (0, 'guest', 'guest@guest.com', '$2y$10$GQsG5y6T2GDmQlwB7u8ui.FCyEnHDtlJ6rZJ.xr3ofA2kB.olsBXy', 'guest@guest.com', 0),
 (1, 'René', 'rensax@me.com', '$2y$10$GQsG5y6T2GDmQlwB7u8ui.FCyEnHDtlJ6rZJ.xr3ofA2kB.olsBXy', 'rensax@me.com', 1),
 (2, 'manager', 'manager@me.com', '$2y$10$lw8CfdVUs1MfC94mp4v0WuwptDgPogUI8SkitBQKUMXvLr6ipqIl.', 'manager@me.com', 2),
@@ -153,5 +153,5 @@ INSERT INTO `wuatrpaz_recette` .`user` (`id`, `name`, `username`, `password`, `e
 (4, 'admin', 'admin@me.com', '$2y$10$BtF.zfwv297COxJf5uk91eQfNh07mEjzMAcdyLfKWB32KRMidE.jK', 'admin@me.com', 1);
 
 
-INSERT INTO `wuatrpaz_recette`. `privilege` (`id`, `privilege`) VALUES
+INSERT INTO `recettes`. `privilege` (`id`, `privilege`) VALUES
 (0, 'guest');
