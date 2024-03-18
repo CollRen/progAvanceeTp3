@@ -43,44 +43,7 @@ class Recettehasingredient extends CRUD
         }
     }
 
-    public function update($data, $id, $id2 = null)
-    {   
-        //Tout change sauf l'ingrédient
-        $data['recette_id'] = $id;
-
-        if ($this->selectId($data['recette_id'], $data['ingredient_id'])) {
-
-            $data_keys = array_fill_keys($this->fillable, '');
-            $data = array_intersect_key($data, $data_keys);
-
-            $fieldName = null;
-            foreach ($data as $key => $value) {
-                $fieldName .= "$key = :$key, ";
-            }
-            $fieldName = rtrim($fieldName, ', ');
-
-
-            $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
-
-            $stmt = $this->prepare($sql);
-            //$stmt->bindValue(":$this->primaryKey", $id);
-
-
-            foreach ($data as $key => $value) {
-                $stmt->bindValue(":$key", $value);
-            }
-            $stmt->execute();
-            $count = $stmt->rowCount();
-
-            if ($count == 1) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    }
+    
 
     final public function selectIdKeys($value1, $value2)
     {
