@@ -14,12 +14,6 @@ use App\Providers\Validator;
 
 class HomeController
 {
-    public function __construct() {
-                $home = new Home;
-        $arrayAuth = $home->isAuth();
-        Auth::verifyAcces($arrayAuth);
-        //Auth::verifyAcces();
-    }
 
     public function index()
     {
@@ -31,7 +25,7 @@ class HomeController
 
         $recetteCats = new RecetteCategorie;
         $selectCat = $recetteCats->select();
-        //print_r($select);
+        
         //include('views/recette/index.php');
         if ($select) {
             return View::render('recette/index', ['recettes' => $select, 'recetteCats' => $selectCat, 'auteurs' => $selectAuteurs]);

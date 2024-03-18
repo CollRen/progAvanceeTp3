@@ -13,24 +13,21 @@ use App\Providers\Validator;
 class UserController
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         $user = new User;
         $arrayAuth = $user->isAuth();
         Auth::verifyAcces($arrayAuth);
-        //Auth::verifyAcces();
     }
 
     public function create()
-    {   if(true){
-        /* if ($_SESSION['privilege_id'] == 1) { */
-            //echo $_SESSION['privilege_id'];
-            $privilege = new Privilege;
-            $privileges = $privilege->select('privilege');
-            return View::render('user/create', ['privileges' => $privileges]);
-        } else {
-            return View::render('login');
-        }
+    {
+
+        $privilege = new Privilege;
+        $privileges = $privilege->select('privilege');
+        return View::render('user/create', ['privileges' => $privileges]);
     }
+
 
 
 

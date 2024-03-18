@@ -18,7 +18,7 @@ class IngredientController
                 $ingredient = new Ingredient;
         $arrayAuth = $ingredient->isAuth();
         Auth::verifyAcces($arrayAuth);
-        //Auth::verifyAcces();
+        
     }
 
     public function index()
@@ -40,7 +40,7 @@ class IngredientController
     public function show($data = [])
     {
         if (isset($data['id']) && $data['id'] != null) {
-            //print_r($data);
+            
             $ingredient = new Ingredient;
             $selectId = $ingredient->selectId($data['id']);
 
@@ -123,7 +123,7 @@ class IngredientController
             }
         } else {
             $errors = $validator->getErrors();
-            //print_r($errors);
+            
             return View::render('ingredient/edit', ['errors' => $errors, 'ingredient' => $data]);
         }
     }

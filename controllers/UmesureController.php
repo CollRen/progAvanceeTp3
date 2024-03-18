@@ -19,7 +19,7 @@ class UmesureController {
     public function index(){
         $umesure = new Umesure;
         $select = $umesure->select();
-        //print_r($select);
+        
         //include('views/umesure/index.php');
         if($select){
             return View::render('umesure/index', ['umesures' => $select]);
@@ -61,7 +61,7 @@ class UmesureController {
             }
         }else{
             $errors = $validator->getErrors();
-            //print_r($errors);
+            
             return View::render('umesure/create', ['errors'=>$errors, 'umesure' => $data]);
         }
     }
@@ -95,7 +95,7 @@ class UmesureController {
                 }
         }else{
             $errors = $validator->getErrors();
-            //print_r($errors);
+            
             return View::render('umesure/edit', ['errors'=>$errors, 'umesure' => $data]);
         }
     }

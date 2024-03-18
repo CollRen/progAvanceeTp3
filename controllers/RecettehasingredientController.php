@@ -18,11 +18,11 @@ use App\Providers\Validator;
 class RecettehasingredientController
 {
 
-    public function __construct() {
+    public function __construct()
+    {
         $recetteHI = new Recettehasingredient;
         $arrayAuth = $recetteHI->isAuth();
         Auth::verifyAcces($arrayAuth);
-        //Auth::verifyAcces();
     }
 
     public function index()
@@ -40,7 +40,7 @@ class RecettehasingredientController
         $recettehasingredient = new Recettehasingredient;
         $select = $recettehasingredient->select();
 
-        //print_r($select);
+
         //include('views/recettehasingredient/index.php');
         if ($select) {
             return View::render('recettehasingredient/index', ['recettehasingredients' => $select, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
@@ -65,8 +65,8 @@ class RecettehasingredientController
     }
 
     public function create($data = NULL)
-    {  
-        
+    {
+
 
         $data['id'] ? $recette_id = $data['id'] : $recette_id = $data['recette_id'];
 
@@ -81,7 +81,7 @@ class RecettehasingredientController
 
     public function store($data)
     {
-        
+
 
         /*         $validator = new Validator;
         $validator->field('nom', $data['nom'], 'Le nom')->min(2)->max(45);
@@ -92,7 +92,7 @@ class RecettehasingredientController
             $recettehasingredient = new Recettehasingredient;
             $insert = $recettehasingredient->insert($data);
 
-            
+
             if ($insert) {
 
                 $umesure = new Umesure;
@@ -110,7 +110,7 @@ class RecettehasingredientController
             }
         } else {
             $errors = $validator->getErrors();
-            //print_r($errors);
+
             return View::render('recettehasingredient/create', ['errors' => $errors, 'recettehasingredient' => $data]);
         }
     }
@@ -152,12 +152,12 @@ class RecettehasingredientController
             $recettehasingredient = new Recettehasingredient;
 
             $update = $recettehasingredient->update($data, $get['recette_id'], $get['ingredient_id']);
-            
+
             if ($update) {
-                /*                 print_r($get); echo '<br>'; print_r($data); die(); */
+
                 $recette = new Recette;
                 $selectId = $recette->selectId($get['recette_id']);
-                
+
                 $recetteCat = new RecetteCategorie;
                 $selectCatId = $recetteCat->selectId($selectId['recette_categorie_id']);
 
@@ -175,31 +175,22 @@ class RecettehasingredientController
 
                 foreach ($selectRHI as $row) {
 
-                    /* print_r($row); echo '<br>'; */
                     $unite = $umesure->selectId($row['unite_mesure_id']);
                     $ingredients = $ingredient->selectId($row['ingredient_id']);
                     $ingredientId = $row['ingredient_id'];
 
-                    /* print_r($unite); */ /* echo '<br>' . $unite['nom']; */
+
                     $recetteHis[] = ['recette_id' => $row['recette_id'], 'unite_mesure_id' => $row['unite_mesure_id'], 'unite_mesure_nom' => $unite['nom'], 'ingredient_nom' => $ingredients['nom'], 'quantite' => $row['quantite'], 'ingredient_id' => $row['ingredient_id']];
-                    // print_r($recetteHis); die();
                 }
 
-                /*                 print_r($data);
-                echo '<br>';
-                print_r($get);
-                die(); */
+
                 return View::render('recette/show', ['recette' => $selectId, 'recetteCat' => $selectCatId, 'auteur' => $selectAuteur, 'recettehasingredients' => $selectRHI, 'umesures' => $selectUmesure, 'ingredients' => $selectIngredient]);
             } else {
-                echo 'Not Updated';
-                die();
                 return View::render('error');
             }
         } else {
-            echo 'Validator not succeded';
-            die();
             $errors = $validator->getErrors();
-            //print_r($errors);
+
             return View::render('recettehasingredient/edit', ['errors' => $errors, 'recettehasingredient' => $data]);
         }
     }

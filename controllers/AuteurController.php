@@ -13,27 +13,18 @@ use App\Providers\Validator;
 class AuteurController
 {
 
-    /**
-     * Soit on met l'autorisation dans le __construct, soit à l'entrée de chaque fonctions
-     * 
-     * Voir __construct
-     * Voir index
-     */
-
     public function __construct()
     {
         $auteur = new Auteur;
         $arrayAuth = $auteur->isAuth();
         Auth::verifyAcces($arrayAuth);
-        //Auth::verifyAcces();
     }
 
     public function index()
     {
         $auteur = new Auteur;
         $select = $auteur->select();
-        //print_r($select);
-        //include('views/auteur/index.php');
+
         if ($select) {
             return View::render('auteur/index', ['auteurs' => $select]);
         } else {
@@ -82,7 +73,7 @@ class AuteurController
             }
         } else {
             $errors = $validator->getErrors();
-            //print_r($errors);
+
             return View::render('auteur/create', ['errors' => $errors, 'auteur' => $data]);
         }
     }
@@ -120,7 +111,7 @@ class AuteurController
             }
         } else {
             $errors = $validator->getErrors();
-            //print_r($errors);
+            
             return View::render('auteur/edit', ['errors' => $errors, 'auteur' => $data]);
         }
     }

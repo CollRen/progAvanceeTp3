@@ -88,7 +88,6 @@ abstract class CRUD extends \PDO
      */
     public function update($data, $id, $id2 = null)
     {
-        //print_r($this->selectId($id)); /* echo '<br>' . $id . '<br>' . $id2; */die();
         if ($this->selectId($id)) {
             $data_keys = array_fill_keys($this->fillable, '');
             $data = array_intersect_key($data, $data_keys);
@@ -103,7 +102,6 @@ abstract class CRUD extends \PDO
                 $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
 
                 $stmt = $this->prepare($sql);
-                //$stmt->bindValue(":$this->primaryKey", $id);
                 $data[$this->primaryKey] = $id;
                 foreach ($data as $key => $value) {
                     $stmt->bindValue(":$key", $value);
@@ -112,7 +110,6 @@ abstract class CRUD extends \PDO
                 $sql = "UPDATE $this->table SET $fieldName WHERE $this->primaryKey = :$this->primaryKey;";
 
                 $stmt = $this->prepare($sql);
-                //$stmt->bindValue(":$this->primaryKey", $id);
                 $data[$this->primaryKey] = $id;
                 foreach ($data as $key => $value) {
                     $stmt->bindValue(":$key", $value);

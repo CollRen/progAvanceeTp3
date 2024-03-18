@@ -37,7 +37,6 @@ class Route {
                         $controllerInstance->$methodName($_POST, $queryParams);
 
                     } else{
-                       /*  var_dump($urlSegments); die(); */
                     $controllerInstance->$methodName($_POST);}
                 }
                 return;

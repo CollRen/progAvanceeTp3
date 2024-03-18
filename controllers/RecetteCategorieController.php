@@ -20,7 +20,7 @@ class RecetteCategorieController {
     public function index(){
         $categorie = new RecetteCategorie;
         $select = $categorie->select();
-        //print_r($select);
+        
         //include('views/categorie/index.php');
         if($select){
             return View::render('categorie/index', ['categories' => $select]);
@@ -62,7 +62,7 @@ class RecetteCategorieController {
             }
         }else{
             $errors = $validator->getErrors();
-            //print_r($errors);
+            
             return View::render('categorie/create', ['errors'=>$errors, 'categorie' => $data]);
         }
     }
@@ -97,7 +97,7 @@ class RecetteCategorieController {
                 }
         }else{
             $errors = $validator->getErrors();
-            //print_r($errors);
+            
             return View::render('categorie/edit', ['errors'=>$errors, 'categorie' => $data]);
         }
     }

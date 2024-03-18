@@ -25,16 +25,7 @@ class RecetteController
         $recette = new Recette;
         $arrayAuth = $recette->isAuth();
         Auth::verifyAcces($arrayAuth);
-
-        //Auth::verifyAcces();
     }
-    /* 
-- Adresse IP
-- Date
-- Nom d'utilisateur (si l'utilisateur est connecté, sinon s'inscrire en tant que visiteur)
-- user_id: $_SERVER[HTTP_SEC_FETCH_USER]
-- Page visitée: $_SERVER[SCRIPT_FILENAME] || REDIRECT_URL || Les deux . */
-
 
     public function index()
 
@@ -49,8 +40,6 @@ class RecetteController
         $recetteCats = new RecetteCategorie;
         $selectCat = $recetteCats->select();
 
-        //print_r($select);
-        //include('views/recette/index.php');
         if ($select) {
             return View::render('recette/index', ['recettes' => $select, 'recetteCats' => $selectCat, 'auteurs' => $selectAuteurs]);
         } else {
