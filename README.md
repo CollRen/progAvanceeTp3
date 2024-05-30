@@ -3,7 +3,7 @@
 
 ## Projet de recette en ligne
 
-Vous pouvez créer des recettes et y inscrire une description, la durée de préparation et de cuisson, un auteur ainsi qu'une catégorie...
+Vous pouvez créer des recettes et y inscrire une description, la durée de préparation et de cuisson, un auteur ainsi qu'une catégorie.
 
 Vous serez ensuite amené à y ajouter les ingrédients (nom, quantité, unité de mesure)
 
